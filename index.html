@@ -245,7 +245,14 @@ footer{background:var(--bg-hero);color:rgba(255,255,255,.7);text-align:center;pa
 
   <p class="hero-tag">Universidad Privada del Norte · 2026-2</p>
   <h1 class="hero-title">Gestión de<br><em>Mantenimiento</em></h1>
-  <p class="hero-sub">Ingeniería Industrial</p>
+  <p class="hero-sub">Ingeniería Industrial · Ciclo 9 · Código INDU1502</p>
+
+  <div class="hero-info">
+    <span class="hbadge">⚙ Presencial</span>
+    <span class="hbadge">📚 3 Créditos</span>
+    <span class="hbadge">🕐 16 Semanas</span>
+    <span class="hbadge">🎓 Ing. Sandro Rivera Valle</span>
+  </div>
 
   <div class="hero-stats">
     <div class="hstat"><div class="hstat-val">16</div><div class="hstat-lbl">Semanas</div></div>
@@ -257,6 +264,24 @@ footer{background:var(--bg-hero);color:rgba(255,255,255,.7);text-align:center;pa
   <div class="hero-scroll"><p>Explorar</p><div class="scroll-bar"></div></div>
 </section>
 
+<!-- ══ INFO SÍLABO ══ -->
+<section class="section" style="padding-bottom:20px">
+  <p class="sec-tag reveal">▸ Información del curso</p>
+  <h2 class="sec-title reveal">Datos del <span>Sílabo</span></h2>
+  <div class="silabo-grid reveal">
+    <div class="sil-card"><div class="sil-lbl">Facultad</div><div class="sil-val">Ingeniería</div></div>
+    <div class="sil-card"><div class="sil-lbl">Carrera</div><div class="sil-val">Ingeniería Industrial</div></div>
+    <div class="sil-card"><div class="sil-lbl">Código</div><div class="sil-val">INDU1502</div></div>
+    <div class="sil-card"><div class="sil-lbl">Ciclo</div><div class="sil-val">9 — Período 2026-2</div></div>
+    <div class="sil-card"><div class="sil-lbl">Créditos</div><div class="sil-val">3 (HT:2 · HP:2)</div></div>
+    <div class="sil-card"><div class="sil-lbl">Modalidad</div><div class="sil-val">Presencial</div></div>
+    <div class="sil-card"><div class="sil-lbl">Duración</div><div class="sil-val">16 semanas</div></div>
+    <div class="sil-card"><div class="sil-lbl">Requisito</div><div class="sil-val">Mecánica y Resistencia de Materiales</div></div>
+  </div>
+</section>
+
+<hr class="sep">
+
 <!-- ══ EQUIPO ══ -->
 <section id="equipo" class="section">
   <p class="sec-tag reveal">▸ Equipo de trabajo</p>
@@ -266,7 +291,7 @@ footer{background:var(--bg-hero);color:rgba(255,255,255,.7);text-align:center;pa
   <div class="team-grid">
     <div class="member-card reveal">
       <div class="avatar">P</div>
-      <div class="member-name">Condor Gamarra<br>Patricia Alexandra</div>
+      <div class="member-name">Cóndor Gamarra<br>Patricia Alexandra</div>
       <div class="member-rol">// Integrante</div>
     </div>
     <div class="member-card reveal">
@@ -306,6 +331,11 @@ footer{background:var(--bg-hero);color:rgba(255,255,255,.7);text-align:center;pa
 <section id="semanas" class="section">
   <p class="sec-tag reveal">▸ Cronograma del sílabo</p>
   <h2 class="sec-title reveal">Actividades por <span>Semana</span></h2>
+
+  <!-- AVISO DE EDICIÓN -->
+  <div class="edit-tip reveal">
+    ✏️ <strong>¿El docente cambió el tema de una semana?</strong>
+    Haz clic en el botón <code>✏ Editar tema</code> que aparece junto al título de cada semana para cambiarlo directamente aquí, sin tocar el código. El cambio se guarda automáticamente en tu navegador.
   </div>
 
   <!-- FILTROS -->
@@ -313,6 +343,9 @@ footer{background:var(--bg-hero);color:rgba(255,255,255,.7);text-align:center;pa
     <button class="fbtn active" onclick="doFilter('all',this)">Todas</button>
     <button class="fbtn" onclick="doFilter('ant',this)">Antecedentes</button>
     <button class="fbtn" onclick="doFilter('fue',this)">Fuentes</button>
+    <button class="fbtn" onclick="doFilter('fot',this)">Fotos</button>
+    <button class="fbtn" onclick="doFilter('cer',this)">Evidencias</button>
+    <button class="fbtn" onclick="doFilter('tar',this)">Tareas</button>
   </div>
 
   <div id="weeksBox"></div>
@@ -350,7 +383,7 @@ footer{background:var(--bg-hero);color:rgba(255,255,255,.7);text-align:center;pa
   <div class="footer-logo">⚙ GESTIÓN DE MANTENIMIENTO · UPN</div>
   <p class="footer-txt">
     Universidad Privada del Norte · Ingeniería Industrial · Ciclo 2026-2<br>
-    Grupo 05
+    Docente: Ing. Sandro Rivera Valle · INDU1502 · Grupo 01
   </p>
 </footer>
 
@@ -376,6 +409,8 @@ const SEMANAS = [
   {
     num: 1,
     theme: "Mantenimiento Correctivo: Costos, Disponibilidad y Confiabilidad",
+    syllabus: "Gestión, sistema, procesos y métodos de Mantenimiento. Ítem, Pieza, Componente, Equipo. Función. Equipo clase A, B y C, Defecto, falla. Parámetros: Disponibilidad, Confiabilidad y mantenibilidad. Mantenimiento Correctivo: Costos directos e indirectos. Lucro cesante. Aplicaciones industriales.",
+    unit: "I — Mantenimiento en la industria moderna",
     acts: [
       { type:'ant', ambito:'nacional', title:"Antecedente: Evolución del mantenimiento correctivo en la industria moderna", desc:"Investigación sobre el origen y aplicación del mantenimiento correctivo en plantas industriales peruanas y latinoamericanas.", link:"https://scholar.google.com", linkLabel:"Ver fuente académica →" },
       { type:'fue', title:"Fuente: García Palencia — Gestión Moderna del Mantenimiento Industrial", desc:"Bibliografía básica del curso. Capítulo sobre sistemas y métodos de mantenimiento.", link:"https://elibro.bibliotecaupn.elogim.com/es/lc/upnorte/titulos/70203", linkLabel:"Ver en biblioteca UPN →" },
@@ -385,6 +420,8 @@ const SEMANAS = [
   {
     num: 2,
     theme: "Mantenimiento Preventivo: Órdenes de Trabajo y Frecuencias",
+    syllabus: "Mantenimiento Preventivo: Cálculo de frecuencia. Orden de Trabajo (OT). Costeo de OT. Modelos matemáticos para políticas óptimas de mantenimiento preventivo. Política I: Reemplazo preventivo basado en la edad. Aplicaciones industriales.",
+    unit: "I — Mantenimiento en la industria moderna",
     acts: [
       { type:'ant', ambito:'nacional', title:"Antecedente: Modelos de mantenimiento preventivo en la industria manufacturera", desc:"Revisión de literatura sobre políticas de reemplazo basado en la edad y su impacto en costos.", link:"https://scholar.google.com", linkLabel:"Ver artículo →" },
       { type:'fue', title:"Fuente: Mantenimiento industrial — Gallará & Pontelli (2019)", desc:"Bibliografía complementaria del curso. Capítulo sobre órdenes de trabajo y frecuencias preventivas.", link:"https://elibro.bibliotecaupn.elogim.com/es/lc/upnorte/titulos/172527", linkLabel:"Ver en biblioteca UPN →" },
@@ -395,6 +432,8 @@ const SEMANAS = [
   {
     num: 3,
     theme: "Política II: Reemplazo Preventivo a Intervalos Constantes (CMC, CMP, COT)",
+    syllabus: "Modelos matemáticos para políticas óptimas de mantenimiento preventivo. Política II: Reemplazo preventivo óptimo a intervalos constantes. Parámetros de Mantenimiento: CMC – CMP – COT. Modelos de Mantenimiento Preventivo. Aplicaciones industriales.",
+    unit: "I — Mantenimiento en la industria moderna",
     acts: [
       { type:'ant', ambito:'nacional', title:"Antecedente: Comparativa de políticas de reemplazo preventivo en equipos rotativos", desc:"Análisis de casos de aplicación de Política I vs Política II en plantas industriales.", link:"https://scholar.google.com", linkLabel:"Ver fuente →" },
       { type:'fue', title:"Fuente: Biblioteca Virtual UPN — recursos sobre CMC y CMP", desc:"Repositorio de la Universidad Privada del Norte con material de referencia del curso.", link:"https://biblioteca.upn.edu.pe/", linkLabel:"Ver biblioteca UPN →" },
@@ -404,6 +443,8 @@ const SEMANAS = [
   {
     num: 4,
     theme: "Mantenimiento Predictivo: Criticidad de Equipos y Técnicas Predictivas",
+    syllabus: "Sostenibilidad económica-financiera del sistema de mantenimiento preventivo. Ciclo de vida sin invertir en mantenimiento preventivo. Ciclo de vida invirtiendo en repotenciación. Mantenimiento Predictivo: Definiciones, criticidad de equipos, técnicas predictivas. Aplicaciones industriales.",
+    unit: "II — Técnicas de mantenimiento industrial",
     acts: [
       { type:'ant', ambito:'nacional', title:"Antecedente: Impacto financiero del mantenimiento predictivo vs preventivo", desc:"Revisión de estudios de caso sobre retorno de inversión en sistemas predictivos.", link:"https://scholar.google.com", linkLabel:"Ver artículo →" },
       { type:'fue', title:"Fuente: Mantenimiento Mundial — técnicas predictivas", desc:"Portal de referencia especializado en mantenimiento industrial.", link:"http://www.mantenimientomundial.com", linkLabel:"Ver fuente →" },
@@ -413,6 +454,8 @@ const SEMANAS = [
   {
     num: 5,
     theme: "Análisis Vibracional y Rodamientos en Máquinas Rotativas",
+    syllabus: "Análisis vibracional en equipos rotativos. Cálculo de la Frecuencia de Mantenimiento Predictivo. Justificación financiera para la inversión en equipos de monitoreo. Análisis de rodamientos en máquinas rotativas: Durabilidad, costos por fallas, durabilidad de rodamientos de bolas rígidos.",
+    unit: "II — Técnicas de mantenimiento industrial",
     acts: [
       { type:'ant', ambito:'nacional', title:"Antecedente: Análisis vibracional como herramienta de mantenimiento predictivo", desc:"Revisión de aplicaciones industriales del análisis de vibraciones para detección temprana de fallas.", link:"https://scholar.google.com", linkLabel:"Ver fuente →" },
       { type:'fue', title:"Fuente: Design proposal of a Maintenance Management System — LACCEI 2021", desc:"Caso aplicado de sistema de mantenimiento en empresa peruana (Pesquera Pacasmayo).", link:"https://laccei.org/LACCEI2021-VirtualEdition/meta/FP57.html", linkLabel:"Ver artículo LACCEI →" },
@@ -423,15 +466,20 @@ const SEMANAS = [
   {
     num: 6,
     theme: "⚡ EVALUACIÓN T1 — Trabajo Grupal (10%)",
+    syllabus: "Evaluación T1: Presentación de Trabajo grupal. Peso: 10% de la nota final. Abarca los contenidos de las semanas 1 al 5 (Unidad I y parte de Unidad II).",
+    unit: "Evaluación",
     isEval: true,
     acts: [
       { type:'eva', title:"T1 — Presentación de Trabajo Grupal", desc:"Exposición grupal de los temas trabajados en la Unidad I. Peso: 10% de la nota final.", link:null },
+      { type:'fot', title:"Foto: Presentación grupal T1", desc:"Registro fotográfico de la sustentación del trabajo grupal ante el docente.", link:null, pending:true },
       { type:'cer', title:"Evidencia: Material de presentación T1", desc:"Documento o PPT del trabajo grupal presentado en la evaluación T1.", link:null, pending:true }
     ]
   },
   {
     num: 7,
     theme: "Rodamientos de Contacto Angular, Cónicos y Costo de Ciclo de Vida (CCV)",
+    syllabus: "Durabilidad de rodamientos de contacto angular. Rodamientos de rodillos cónicos y cilíndricos. Aplicaciones industriales. CCV de activos industriales. Frecuencia de Mantenimiento Preventivo.",
+    unit: "II — Técnicas de mantenimiento industrial",
     acts: [
       { type:'ant', ambito:'nacional', title:"Antecedente: Costo de ciclo de vida (CCV) en activos industriales", desc:"Investigación sobre metodologías de análisis de CCV para la toma de decisiones en mantenimiento.", link:"https://scholar.google.com", linkLabel:"Ver fuente →" },
       { type:'fue', title:"Fuente: Normas ISO sobre selección y cálculo de rodamientos", desc:"Referencias técnicas de fabricantes y normas para rodamientos de contacto angular.", link:"https://www.iso.org", linkLabel:"Ver norma →" },
@@ -441,6 +489,8 @@ const SEMANAS = [
   {
     num: 8,
     theme: "Soldadura de Mantenimiento: Procesos, Costos y Aplicaciones",
+    syllabus: "Procesos de soldadura eléctrica. Definiciones y componentes. Soldadura de Mantenimiento vs Soldadura de Fabricación. Costos de soldadura. Soldadura eléctrica con arco abierto, con electrodos y con alambre tubular. Aplicaciones industriales.",
+    unit: "II — Técnicas de mantenimiento industrial",
     acts: [
       { type:'ant', ambito:'nacional', title:"Antecedente: La soldadura como técnica de mantenimiento industrial", desc:"Revisión de casos de uso de soldadura de mantenimiento en plantas de producción.", link:"https://scholar.google.com", linkLabel:"Ver fuente →" },
       { type:'fue', title:"Fuente: Manual de soldadura — AWS (American Welding Society)", desc:"Referencia técnica sobre procesos de soldadura con arco eléctrico.", link:"https://www.aws.org", linkLabel:"Ver AWS →" },
@@ -450,6 +500,8 @@ const SEMANAS = [
   {
     num: 9,
     theme: "Sistemas de Lubricación Industrial y Análisis de Fallas",
+    syllabus: "Sistemas de lubricación industrial. Definiciones, tipos de lubricantes y de lubricación. Sistemas automatizados. Dimensionamiento. Análisis económico. Lubricación de rodamientos. Herramientas para Análisis de Fallas. Aplicaciones industriales.",
+    unit: "II — Técnicas de mantenimiento industrial",
     acts: [
       { type:'ant', ambito:'nacional', title:"Antecedente: Impacto de la lubricación en la vida útil de rodamientos", desc:"Revisión de estudios sobre análisis económico de sistemas de lubricación automatizada.", link:"https://scholar.google.com", linkLabel:"Ver artículo →" },
       { type:'fue', title:"Fuente: Mantenimiento Mundial — lubricación industrial", desc:"Recursos técnicos sobre tipos de lubricantes y sistemas de lubricación automatizados.", link:"http://www.mantenimientomundial.com", linkLabel:"Ver fuente →" },
@@ -460,15 +512,20 @@ const SEMANAS = [
   {
     num: 10,
     theme: "⚡ EVALUACIÓN T2 — Resolución de Caso Grupal (20%)",
+    syllabus: "Evaluación T2: Resolución de Caso grupal. Peso: 20% de la nota final. Abarca los contenidos de las semanas 6 al 9 (Unidad II completa).",
+    unit: "Evaluación",
     isEval: true,
     acts: [
       { type:'eva', title:"T2 — Resolución de Caso Grupal", desc:"Resolución de un caso industrial grupal integrando técnicas de la Unidad II. Peso: 20% de la nota final.", link:null },
+      { type:'fot', title:"Foto: Presentación de caso grupal T2", desc:"Registro fotográfico de la sustentación del caso ante el docente.", link:null, pending:true },
       { type:'cer', title:"Evidencia: Informe del caso resuelto T2", desc:"Documento con el desarrollo del caso grupal presentado en la evaluación T2.", link:null, pending:true }
     ]
   },
   {
     num: 11,
     theme: "RCM: Mantenimiento Centrado en la Confiabilidad — FTA, FMEA, ACR",
+    syllabus: "Mantenimiento Centrado en la Confiabilidad (RCM). Características del RCM. Confiabilidad operacional. Confiabilidad serie-paralelo. Árbol Lógico de Fallas (FTA). Análisis Causa Raíz (ACR). Análisis de Modos y Efectos de Fallas (FMEA). Análisis de Costo Riesgo-Beneficio (BRCA). Gestión de soldadura. Análisis de fallas.",
+    unit: "III — Mantenimiento centrado en fiabilidad y TPM",
     acts: [
       { type:'ant', ambito:'nacional', title:"Antecedente: Implementación del RCM en empresas latinoamericanas", desc:"Revisión de casos de aplicación de RCM en la industria manufacturera y minera.", link:"https://scholar.google.com", linkLabel:"Ver fuente →" },
       { type:'fue', title:"Fuente: Propuesta de implementación del TPM — Biblioteca UPN", desc:"Referencia complementaria sobre metodologías de confiabilidad en sistemas industriales.", link:"https://elibro.bibliotecaupn.elogim.com/es/lc/upnorte/titulos/34454", linkLabel:"Ver en biblioteca UPN →" },
@@ -479,6 +536,8 @@ const SEMANAS = [
   {
     num: 12,
     theme: "TPM: Mantenimiento Productivo Total — Mantenibilidad y Costos de Ciclo de Vida",
+    syllabus: "Mantenibilidad como determinante de la disponibilidad. Cálculo de Mantenibilidad – MTTR. Costo ciclo de vida de plantas industriales: inversión, operación, mantenimiento, lucro cesante. TPM: Las seis grandes pérdidas, fallas crónicas y esporádicas. Mantenimiento autónomo. Efectividad global (OEE). Productividad de los sistemas de mantenimiento.",
+    unit: "III — Mantenimiento centrado en fiabilidad y TPM",
     acts: [
       { type:'ant', ambito:'nacional', title:"Antecedente: Implementación del TPM en empresas peruanas — caso de estudio", desc:"Análisis de la implementación del TPM y su impacto en la efectividad global de equipos (OEE).", link:"https://elibro.bibliotecaupn.elogim.com/es/lc/upnorte/titulos/34454", linkLabel:"Ver referencia →" },
       { type:'fue', title:"Fuente: García Palencia — Capítulo sobre TPM y Mantenibilidad", desc:"Bibliografía básica del curso. Sección de mantenimiento productivo total y cálculo de MTTR.", link:"https://elibro.bibliotecaupn.elogim.com/es/lc/upnorte/titulos/70203", linkLabel:"Ver en biblioteca UPN →" },
@@ -490,6 +549,8 @@ const SEMANAS = [
   {
     num: 13,
     theme: "⚡ EVALUACIÓN T3 — Práctica Calificada Individual (30%)",
+    syllabus: "Evaluación T3: Práctica calificada individual. Peso: 30% de la nota final. Abarca los contenidos de la Unidad III (semanas 11 y 12).",
+    unit: "Evaluación",
     isEval: true,
     acts: [
       { type:'eva', title:"T3 — Práctica Calificada Individual", desc:"Evaluación individual sobre RCM, TPM, FMEA y mantenibilidad. Peso: 30% de la nota final.", link:null },
@@ -499,6 +560,8 @@ const SEMANAS = [
   {
     num: 14,
     theme: "Indicadores de Mantenimiento, Gestión de Stocks y TPM Avanzado",
+    syllabus: "Indicadores de Mantenimiento: Índices de disponibilidad, productividad y gestión de costos. Gestión de Stocks y Repuestos: Lote económico de compra, frecuencia de pedidos, stock de seguridad. Estimación de unidades de refacción. TPM: Tasa de Proceso, Tasa de Calidad, Capacidad Productiva. Backlog.",
+    unit: "III — Mantenimiento centrado en fiabilidad y TPM",
     acts: [
       { type:'ant', ambito:'nacional', title:"Antecedente: Indicadores de mantenimiento (KPIs) en la industria moderna", desc:"Revisión de índices de disponibilidad, MTBF, MTTR y OEE en empresas del sector industrial.", link:"https://scholar.google.com", linkLabel:"Ver fuente →" },
       { type:'fue', title:"Fuente: Mantenimiento industrial — Gallará & Pontelli (2019)", desc:"Capítulo sobre gestión de stocks, lote económico y estimación de repuestos.", link:"https://elibro.bibliotecaupn.elogim.com/es/lc/upnorte/titulos/172527", linkLabel:"Ver en biblioteca UPN →" },
@@ -509,6 +572,8 @@ const SEMANAS = [
   {
     num: 15,
     theme: "Sustentación de Proyectos Aplicativos Finales",
+    syllabus: "Sustentaciones de proyectos aplicativos finales. Presentación del proyecto grupal con enfoque de auditoría y propuestas técnico-económicas de mejora del proceso de mantenimiento en Planta Industrial.",
+    unit: "Proyecto Final",
     acts: [
       { type:'ant', ambito:'nacional', title:"Antecedente: Auditorías de mantenimiento en plantas industriales peruanas", desc:"Revisión de metodologías de auditoría aplicadas como marco del proyecto final.", link:"https://laccei.org/LACCEI2021-VirtualEdition/meta/FP57.html", linkLabel:"Ver caso aplicado →" },
       { type:'fue', title:"Fuente: Bibliografía integrada del semestre", desc:"Compilación de todas las referencias utilizadas durante el ciclo: García Palencia, Gallará & Pontelli, normas ISO, OSHA.", link:"https://biblioteca.upn.edu.pe/", linkLabel:"Ver biblioteca UPN →" },
@@ -535,6 +600,8 @@ const SEMANAS = [
 const TYPE = {
   ant:{css:'t-ant',lbl:'Antecedente'},
   fue:{css:'t-fue',lbl:'Fuente'},
+  fot:{css:'t-fot',lbl:'📷 Foto'},
+  cer:{css:'t-cer',lbl:'📁 Evidencia'},
   tar:{css:'t-tar',lbl:'Tarea'},
   eva:{css:'t-eva',lbl:'⚡ Evaluación'}
 };
@@ -547,7 +614,7 @@ const TYPE = {
      sin necesidad de tocar este archivo de nuevo.
    ══════════════════════════════════════════════════════════════ */
 const MIEMBROS = [
-  { name: "Condor Gamarra, Patricia Alexandra", link: null },
+  { name: "Cóndor Gamarra, Patricia Alexandra", link: null },
   { name: "Manayay Lozada, Jesús Beder",         link: null },
   { name: "Muñoz Vargas, Bratt",                 link: null },
   { name: "Torres Yactapuri, Ailton",            link: null },
@@ -694,6 +761,9 @@ function render(data){
         <span class="chev">▼</span>
       </div>
       <div class="week-body">
+        <div class="syllabus-box">
+          <strong>📖 Saberes del sílabo</strong>
+          ${s.syllabus}
         </div>
         ${weekAntSection(s.acts)}
         ${weekFuentesSection(s.acts, s.fuentesAcademicas)}
