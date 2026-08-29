@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gestión de Mantenimiento — UPN</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════
+   COLORES — edita aquí para cambiar paleta
+   ══════════════════════════════════════════ */
+:root {
+  --bg-page:  #F5F7FA;
+  --bg-white: #FFFFFF;
+  --bg-hero:  #1B2B4B;
+  --accent:   #D4820A;
+  --accent2:  #1B2B4B;
+  --txt-dark: #1A202C;
+  --txt-mid:  #4A5568;
+  --txt-soft: #718096;
+  --border:   #E2E8F0;
+  --bord-acc: #D4820A;
+  --shadow:   0 2px 12px rgba(0,0,0,.07);
+  --shadow-h: 0 8px 24px rgba(0,0,0,.13);
+  --radius:   10px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg-page);color:var(--txt-dark);font-family:'Inter',sans-serif}
+
+/* barra progreso */
+#prog{position:fixed;top:0;left:0;height:3px;width:0%;background:linear-gradient(90deg,var(--accent),#F6AD55);z-index:200;transition:width .1s}
+
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:58px;box-shadow:0 1px 6px rgba(0,0,0,.06)}
+.nav-brand{font-family:'Orbitron',sans-serif;font-size:13px;font-weight:600;color:var(--accent2);letter-spacing:2px;display:flex;align-items:center;gap:8px}
+.nav-brand span{color:var(--accent)}
+.nav-links{display:flex;gap:20px;list-style:none}
+.nav-links a{color:var(--txt-mid);text-decoration:none;font-size:13px;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:var(--accent)}
+
+/* ── HERO ── */
+#hero{background:var(--bg-hero);position:relative;overflow:hidden;min-height:92vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 24px 60px}
+#hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:36px 36px}
+#hero::after{content:'';position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(212,130,10,.18) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+.hero-tag{position:relative;z-index:1;display:inline-block;background:rgba(212,130,10,.2);border:1px solid rgba(212,130,10,.5);color:#F6C87A;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:3px;padding:6px 16px;border-radius:4px;margin-bottom:28px;opacity:0;animation:fadeUp .7s .2s forwards}
+.hero-title{position:relative;z-index:1;font-family:'Orbitron',sans-serif;font-size:clamp(30px,7vw,72px);font-weight:900;color:#FFF;line-height:1.08;letter-spacing:-1px;opacity:0;animation:fadeUp .8s .4s forwards}
+.hero-title em{color:#F6AD55;font-style:normal}
+.hero-sub{position:relative;z-index:1;margin-top:18px;font-size:clamp(14px,2vw,18px);color:rgba(255,255,255,.65);font-weight:300;opacity:0;animation:fadeUp .8s .6s forwards}
+.hero-info{position:relative;z-index:1;margin-top:28px;display:flex;flex-wrap:wrap;gap:12px;justify-content:center;opacity:0;animation:fadeUp .8s .75s forwards}
+.hbadge{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.85);font-size:12px;padding:6px 14px;border-radius:5px;font-family:'JetBrains Mono',monospace;letter-spacing:1px}
+.hero-stats{position:relative;z-index:1;display:flex;gap:40px;flex-wrap:wrap;justify-content:center;margin-top:52px;opacity:0;animation:fadeUp .8s .9s forwards}
+.hstat-val{font-family:'Orbitron',sans-serif;font-size:36px;font-weight:900;color:#F6AD55;line-height:1}
+.hstat-lbl{font-size:11px;color:rgba(255,255,255,.45);letter-spacing:2px;text-transform:uppercase;margin-top:4px;font-family:'JetBrains Mono',monospace}
+.hero-scroll{position:relative;z-index:1;margin-top:52px;display:flex;flex-direction:column;align-items:center;gap:6px;opacity:0;animation:fadeUp .8s 1.1s forwards}
+.hero-scroll p{font-size:10px;color:rgba(255,255,255,.4);letter-spacing:3px;text-transform:uppercase}
+.scroll-bar{width:1px;height:36px;background:linear-gradient(var(--accent),transparent);animation:pulse 2s ease-in-out infinite}
+.hero-gear{position:absolute;opacity:.06;pointer-events:none;fill:white}
+.hero-gear.g1{width:420px;top:-60px;right:-80px;animation:spin 80s linear infinite}
+.hero-gear.g2{width:260px;bottom:-40px;left:-50px;animation:spin 50s linear infinite reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{0%,100%{opacity:.3}50%{opacity:1}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+/* ── SECCIÓN ── */
+.section{max-width:1080px;margin:0 auto;padding:80px 24px}
+.sec-tag{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:3px;text-transform:uppercase;margin-bottom:10px}
+.sec-title{font-family:'Orbitron',sans-serif;font-size:clamp(20px,4vw,34px);font-weight:700;color:var(--txt-dark);margin-bottom:8px}
+.sec-title span{color:var(--accent)}
+.sec-desc{font-size:15px;color:var(--txt-mid);max-width:580px;line-height:1.7;margin-bottom:40px}
+
+/* ── INFO DEL SÍLABO ── */
+.silabo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-bottom:40px}
+.sil-card{background:var(--bg-white);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow)}
+.sil-lbl{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
+.sil-val{font-size:14px;font-weight:600;color:var(--txt-dark)}
+
+/* ── EQUIPO ── */
+.team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px;margin-bottom:24px}
+.member-card{background:var(--bg-white);border:1px solid var(--border);border-radius:var(--radius);padding:28px 16px 22px;text-align:center;box-shadow:var(--shadow);transition:box-shadow .25s,transform .25s,border-color .25s;position:relative;overflow:hidden}
+.member-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),#F6AD55);opacity:0;transition:opacity .25s}
+.member-card:hover{box-shadow:var(--shadow-h);transform:translateY(-4px);border-color:var(--bord-acc)}
+.member-card:hover::after{opacity:1}
+.avatar{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--accent2),var(--accent));color:#fff;font-family:'Orbitron',sans-serif;font-size:20px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
+.member-name{font-size:13px;font-weight:600;color:var(--txt-dark);line-height:1.45}
+.member-rol{margin-top:5px;font-size:11px;color:var(--txt-soft);font-family:'JetBrains Mono',monospace}
+.docente-box{background:var(--bg-white);border:1px solid var(--bord-acc);border-radius:var(--radius);padding:28px 24px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;box-shadow:var(--shadow)}
+.docente-icon{width:68px;height:68px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#F6AD55);display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0}
+.docente-lbl{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:3px;text-transform:uppercase;margin-bottom:6px}
+.docente-name{font-family:'Orbitron',sans-serif;font-size:17px;font-weight:700;color:var(--txt-dark)}
+
+/* ── SEMANAS ── */
+.sep{border:none;height:1px;background:var(--border);margin:0}
+.filter-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.fbtn{background:var(--bg-white);border:1px solid var(--border);border-radius:6px;color:var(--txt-mid);font-family:'JetBrains Mono',monospace;font-size:11px;padding:6px 14px;cursor:pointer;letter-spacing:.5px;transition:all .2s}
+.fbtn:hover,.fbtn.active{background:var(--accent);border-color:var(--accent);color:#fff}
+
+/* ══ CAJA DE EDICIÓN RÁPIDA ══ */
+.edit-tip{background:#FFF8E1;border:1px solid #FFD54F;border-radius:8px;padding:14px 18px;margin-bottom:28px;font-size:13px;color:#5D4037;line-height:1.6}
+.edit-tip strong{color:#BF360C}
+.edit-tip code{background:#FFE0B2;padding:1px 6px;border-radius:3px;font-family:'JetBrains Mono',monospace;font-size:12px}
+
+.week-block{background:var(--bg-white);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:12px;box-shadow:var(--shadow);overflow:hidden;transition:border-color .25s}
+.week-block:hover{border-color:rgba(212,130,10,.35)}
+.week-block.is-eval{border-left:4px solid #E53E3E}
+.week-block.is-eval .week-num{color:#E53E3E}
+
+.week-head{display:flex;align-items:center;gap:16px;padding:18px 22px;cursor:pointer;user-select:none;transition:background .2s}
+.week-head:hover{background:#FAFBFC}
+.week-num{font-family:'Orbitron',sans-serif;font-size:24px;font-weight:900;color:var(--accent);min-width:56px;line-height:1}
+.week-meta .wlbl{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--txt-soft);letter-spacing:2px;text-transform:uppercase}
+.week-meta .wtheme{font-size:15px;font-weight:600;color:var(--txt-dark);margin-top:3px}
+
+/* ── EDICIÓN INLINE DEL TEMA ── */
+.edit-theme-btn{margin-left:8px;background:none;border:1px dashed #ccc;border-radius:4px;color:var(--txt-soft);font-size:11px;padding:2px 8px;cursor:pointer;transition:all .2s;font-family:'JetBrains Mono',monospace}
+.edit-theme-btn:hover{border-color:var(--accent);color:var(--accent)}
+.theme-input{font-size:15px;font-weight:600;color:var(--txt-dark);border:1px solid var(--accent);border-radius:5px;padding:4px 10px;font-family:'Inter',sans-serif;outline:none;width:100%;max-width:480px;margin-top:3px}
+
+.chev{margin-left:auto;color:var(--txt-soft);font-size:16px;transition:transform .3s;flex-shrink:0}
+.week-block.open .chev{transform:rotate(180deg)}
+.week-body{display:none;padding:0 22px 20px;border-top:1px solid var(--border)}
+.week-block.open .week-body{display:block}
+
+/* saberes del sílabo */
+.syllabus-box{background:#F0F4FF;border:1px solid #C3CEEC;border-radius:7px;padding:12px 16px;margin:14px 0 16px;font-size:12px;color:#2D3748;line-height:1.7}
+.syllabus-box strong{font-size:11px;color:#3B5BDB;font-family:'JetBrains Mono',monospace;letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:4px}
+
+.act-list{list-style:none;padding-top:4px}
+.act-item{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}
+.act-item:last-child{border-bottom:none}
+.atype{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.8px;padding:3px 9px;border-radius:4px;text-transform:uppercase;flex-shrink:0;margin-top:2px}
+.t-ant{background:#FEF3C7;color:#92400E;border:1px solid #FCD34D}
+.t-fue{background:#D1FAE5;color:#065F46;border:1px solid #6EE7B7}
+.t-fot{background:#DBEAFE;color:#1E40AF;border:1px solid #93C5FD}
+.t-cer{background:#EDE9FE;color:#5B21B6;border:1px solid #C4B5FD}
+.t-tar{background:#FEE2E2;color:#991B1B;border:1px solid #FCA5A5}
+.t-eva{background:#1B2B4B;color:#fff;border:1px solid #1B2B4B}
+.act-body{flex:1}
+.act-title{font-size:14px;font-weight:600;color:var(--txt-dark);line-height:1.4}
+.act-desc{font-size:12px;color:var(--txt-mid);margin-top:4px;line-height:1.6}
+.act-link{display:inline-flex;align-items:center;gap:4px;margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);text-decoration:none;border-bottom:1px dashed rgba(212,130,10,.4);transition:color .2s}
+.act-link:hover{color:#b36b08}
+.act-pend{display:inline-flex;align-items:center;gap:5px;margin-top:8px;font-size:11px;color:var(--txt-soft);font-style:italic}
+
+/* ── SUBSECCIONES DENTRO DE CADA SEMANA (antecedentes / fuentes / referencias) ── */
+.subsec-title{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent2);letter-spacing:1.5px;text-transform:uppercase;font-weight:700;margin:18px 0 10px;display:flex;align-items:center;gap:6px}
+.subsec-title:first-child{margin-top:14px}
+
+.ant-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:6px}
+.ant-box{background:#FFF5F5;border:1px solid #FEB2B2;border-radius:8px;padding:14px 16px;font-size:12px;color:var(--txt-mid);line-height:1.6}
+.ant-box-title{font-size:13px;font-weight:600;color:var(--txt-dark);margin-bottom:4px;line-height:1.4}
+.ant-box.ant-pending{display:flex;align-items:center;justify-content:center;text-align:center;color:var(--txt-soft);font-style:italic;min-height:74px;border-style:dashed;background:#FAFAFA}
+
+.fuentes-db-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:6px}
+.fuente-db{background:#F0FFF4;border:1px solid #9AE6B4;border-radius:8px;padding:14px 16px}
+.fuente-db-lbl{font-family:'JetBrains Mono',monospace;font-size:10px;color:#276749;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px;font-weight:700}
+.fuente-row{font-size:12px;color:var(--txt-mid);line-height:1.8;margin-bottom:10px}
+.fuente-row:last-child{margin-bottom:0}
+.fuente-row.pending{color:var(--txt-soft);font-style:italic}
+.fuente-row b{color:var(--txt-dark)}
+.fuente-row a{color:#276749;word-break:break-all}
+
+.ref-compiled{list-style:disc;padding-left:20px;font-size:12px;color:var(--txt-mid);line-height:2;margin-bottom:6px}
+.ref-compiled a{color:var(--accent);text-decoration:none;border-bottom:1px dashed rgba(212,130,10,.4)}
+.ref-compiled a:hover{color:#b36b08}
+
+/* ── CERTIFICADOS (por integrante → OneDrive) ── */
+.cert-list{display:flex;flex-direction:column;gap:10px}
+.cert-pill{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--bg-white);border:1.5px solid #FEB2B2;border-radius:24px;padding:14px 24px;font-size:14px;font-weight:600;color:var(--txt-dark);text-decoration:none;box-shadow:var(--shadow);transition:all .2s}
+.cert-pill:hover{border-color:var(--accent);box-shadow:var(--shadow-h);transform:translateX(4px)}
+.cert-pill .cert-arrow{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);white-space:nowrap;flex-shrink:0}
+.cert-pill.disabled{color:var(--txt-soft);cursor:default;border-style:dashed}
+.cert-pill.disabled .cert-arrow{color:var(--txt-soft)}
+.cert-pill.disabled:hover{transform:none;box-shadow:var(--shadow);border-color:#FEB2B2}
+
+/* ── ACTIVIDADES CULTURALES ── */
+.cult-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.cult-card{background:var(--bg-white);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:box-shadow .25s,transform .25s}
+.cult-card:hover{box-shadow:var(--shadow-h);transform:translateY(-3px)}
+.cult-title{background:#F5F7FA;border-bottom:1px solid var(--border);padding:9px 14px;font-size:12px;font-weight:700;color:var(--txt-dark);text-align:center}
+.cult-photo{height:160px;display:flex;align-items:center;justify-content:center;background:#F0F2F5;color:var(--txt-soft);font-size:12px;font-style:italic}
+.cult-photo img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* ── reveal ── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.reveal.vis{opacity:1;transform:none}
+
+/* ── FOOTER ── */
+footer{background:var(--bg-hero);color:rgba(255,255,255,.7);text-align:center;padding:44px 24px}
+.footer-logo{font-family:'Orbitron',sans-serif;font-size:14px;font-weight:700;color:#F6AD55;letter-spacing:3px;margin-bottom:10px}
+.footer-txt{font-size:13px;line-height:1.9}
+
+/* ── responsive ── */
+@media(max-width:600px){
+  .nav-links{display:none}
+  .week-num{font-size:18px;min-width:44px}
+  .week-head{padding:14px 16px;gap:10px}
+  .week-body{padding:0 16px 16px}
+  .docente-box{flex-direction:column;text-align:center}
+  .hero-stats{gap:24px}
+  .hstat-val{font-size:26px}
+  .ant-grid,.fuentes-db-grid,.cult-grid{grid-template-columns:1fr}
+  .cert-pill{padding:12px 16px;font-size:13px;flex-wrap:wrap}
+}
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <div class="nav-brand">⚙ UPN · <span>Gestión de Mantenimiento</span></div>
+  <ul class="nav-links">
+    <li><a href="#hero">Inicio</a></li>
+    <li><a href="#equipo">Equipo</a></li>
+    <li><a href="#semanas">Semanas</a></li>
+    <li><a href="#certificados">Certificados</a></li>
+    <li><a href="#culturales">Cultural</a></li>
+  </ul>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section id="hero">
+  <svg class="hero-gear g1" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="100" cy="100" r="42" fill="none" stroke="white" stroke-width="9"/>
+    <circle cx="100" cy="100" r="14" fill="white"/>
+    <rect x="92" y="4" width="16" height="24" rx="4"/><rect x="92" y="172" width="16" height="24" rx="4"/>
+    <rect x="4" y="92" width="24" height="16" rx="4"/><rect x="172" y="92" width="24" height="16" rx="4"/>
+    <rect x="28" y="28" width="24" height="16" rx="4" transform="rotate(45 40 36)"/>
+    <rect x="156" y="156" width="24" height="16" rx="4" transform="rotate(45 168 164)"/>
+    <rect x="156" y="28" width="24" height="16" rx="4" transform="rotate(-45 168 36)"/>
+    <rect x="28" y="156" width="24" height="16" rx="4" transform="rotate(-45 40 164)"/>
+  </svg>
+  <svg class="hero-gear g2" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="100" cy="100" r="50" fill="none" stroke="white" stroke-width="10"/>
+    <circle cx="100" cy="100" r="16" fill="white"/>
+    <rect x="92" y="6" width="16" height="26" rx="4"/><rect x="92" y="168" width="16" height="26" rx="4"/>
+    <rect x="6" y="92" width="26" height="16" rx="4"/><rect x="168" y="92" width="26" height="16" rx="4"/>
+    <rect x="24" y="24" width="26" height="16" rx="4" transform="rotate(45 37 32)"/>
+    <rect x="150" y="150" width="26" height="16" rx="4" transform="rotate(45 163 158)"/>
+    <rect x="150" y="24" width="26" height="16" rx="4" transform="rotate(-45 163 32)"/>
+    <rect x="24" y="150" width="26" height="16" rx="4" transform="rotate(-45 37 158)"/>
+  </svg>
+
+  <p class="hero-tag">Universidad Privada del Norte · 2026-2</p>
+  <h1 class="hero-title">Gestión de<br><em>Mantenimiento</em></h1>
+  <p class="hero-sub">Ingeniería Industrial · Ciclo 9 · Código INDU1502</p>
+
+  <div class="hero-info">
+    <span class="hbadge">⚙ Presencial</span>
+    <span class="hbadge">📚 3 Créditos</span>
+    <span class="hbadge">🕐 16 Semanas</span>
+    <span class="hbadge">🎓 Ing. Sandro Rivera Valle</span>
+  </div>
+
+  <div class="hero-stats">
+    <div class="hstat"><div class="hstat-val">16</div><div class="hstat-lbl">Semanas</div></div>
+    <div class="hstat"><div class="hstat-val">5</div><div class="hstat-lbl">Integrantes</div></div>
+    <div class="hstat"><div class="hstat-val">3</div><div class="hstat-lbl">Unidades</div></div>
+    <div class="hstat"><div class="hstat-val">4</div><div class="hstat-lbl">Evaluaciones</div></div>
+  </div>
+
+  <div class="hero-scroll"><p>Explorar</p><div class="scroll-bar"></div></div>
+</section>
+
+<!-- ══ INFO SÍLABO ══ -->
+<section class="section" style="padding-bottom:20px">
+  <p class="sec-tag reveal">▸ Información del curso</p>
+  <h2 class="sec-title reveal">Datos del <span>Sílabo</span></h2>
+  <div class="silabo-grid reveal">
+    <div class="sil-card"><div class="sil-lbl">Facultad</div><div class="sil-val">Ingeniería</div></div>
+    <div class="sil-card"><div class="sil-lbl">Carrera</div><div class="sil-val">Ingeniería Industrial</div></div>
+    <div class="sil-card"><div class="sil-lbl">Código</div><div class="sil-val">INDU1502</div></div>
+    <div class="sil-card"><div class="sil-lbl">Ciclo</div><div class="sil-val">9 — Período 2026-2</div></div>
+    <div class="sil-card"><div class="sil-lbl">Créditos</div><div class="sil-val">3 (HT:2 · HP:2)</div></div>
+    <div class="sil-card"><div class="sil-lbl">Modalidad</div><div class="sil-val">Presencial</div></div>
+    <div class="sil-card"><div class="sil-lbl">Duración</div><div class="sil-val">16 semanas</div></div>
+    <div class="sil-card"><div class="sil-lbl">Requisito</div><div class="sil-val">Mecánica y Resistencia de Materiales</div></div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- ══ EQUIPO ══ -->
+<section id="equipo" class="section">
+  <p class="sec-tag reveal">▸ Equipo de trabajo</p>
+  <h2 class="sec-title reveal">Integrantes del <span>Grupo</span></h2>
+  <p class="sec-desc reveal">Estudiantes de Ingeniería Industrial — Universidad Privada del Norte, ciclo 2026-2.</p>
+
+  <div class="team-grid">
+    <div class="member-card reveal">
+      <div class="avatar">P</div>
+      <div class="member-name">Cóndor Gamarra<br>Patricia Alexandra</div>
+      <div class="member-rol">// Integrante</div>
+    </div>
+    <div class="member-card reveal">
+      <div class="avatar">J</div>
+      <div class="member-name">Manayay Lozada<br>Jesús Beder</div>
+      <div class="member-rol">// Integrante</div>
+    </div>
+    <div class="member-card reveal">
+      <div class="avatar">B</div>
+      <div class="member-name">Muñoz Vargas<br>Bratt</div>
+      <div class="member-rol">// Integrante</div>
+    </div>
+    <div class="member-card reveal">
+      <div class="avatar">A</div>
+      <div class="member-name">Torres Yactapuri<br>Ailton</div>
+      <div class="member-rol">// Integrante</div>
+    </div>
+    <div class="member-card reveal">
+      <div class="avatar">A</div>
+      <div class="member-name">Valdivieso Cuaresma<br>Alexander</div>
+      <div class="member-rol">// Integrante</div>
+    </div>
+  </div>
+
+  <div class="docente-box reveal">
+    <div class="docente-icon">🎓</div>
+    <div>
+      <div class="docente-lbl">▸ Docente del curso</div>
+      <div class="docente-name">Ing. Sandro Rivera Valle</div>
+    </div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- ══ SEMANAS ══ -->
+<section id="semanas" class="section">
+  <p class="sec-tag reveal">▸ Cronograma del sílabo</p>
+  <h2 class="sec-title reveal">Actividades por <span>Semana</span></h2>
+
+  <!-- AVISO DE EDICIÓN -->
+  <div class="edit-tip reveal">
+    ✏️ <strong>¿El docente cambió el tema de una semana?</strong>
+    Haz clic en el botón <code>✏ Editar tema</code> que aparece junto al título de cada semana para cambiarlo directamente aquí, sin tocar el código. El cambio se guarda automáticamente en tu navegador.
+  </div>
+
+  <!-- FILTROS -->
+  <div class="filter-row reveal">
+    <button class="fbtn active" onclick="doFilter('all',this)">Todas</button>
+    <button class="fbtn" onclick="doFilter('ant',this)">Antecedentes</button>
+    <button class="fbtn" onclick="doFilter('fue',this)">Fuentes</button>
+    <button class="fbtn" onclick="doFilter('fot',this)">Fotos</button>
+    <button class="fbtn" onclick="doFilter('cer',this)">Evidencias</button>
+    <button class="fbtn" onclick="doFilter('tar',this)">Tareas</button>
+  </div>
+
+  <div id="weeksBox"></div>
+</section>
+
+<hr class="sep">
+
+<!-- ══ CERTIFICADOS ══ -->
+<section id="certificados" class="section">
+  <p class="sec-tag reveal">▸ Reconocimientos individuales</p>
+  <h2 class="sec-title reveal">Carpeta de <span>Certificados</span></h2>
+  <p class="sec-desc reveal">Cada integrante irá acumulando aquí los certificados obtenidos durante todo el ciclo (cursos, webinars, talleres). Haz clic en tu nombre para abrir tu carpeta de OneDrive y sube ahí cada certificado nuevo — no hace falta cambiar el enlace cada semana, solo se sube el archivo nuevo a la misma carpeta.</p>
+
+  <div class="edit-tip reveal">
+    ✏️ <strong>¿Cómo agrego mi carpeta de OneDrive?</strong>
+    Busca el arreglo <code>MIEMBROS</code> en el código (al final del archivo) y reemplaza <code>link: null</code> por <code>link: "https://onedrive.live.com/..."</code> con el enlace para compartir de tu carpeta personal.
+  </div>
+
+  <div class="cert-list" id="certBox"></div>
+</section>
+
+<hr class="sep">
+
+<!-- ══ ACTIVIDADES CULTURALES ══ -->
+<section id="culturales" class="section">
+  <p class="sec-tag reveal">▸ Fuera del aula</p>
+  <h2 class="sec-title reveal">Actividades <span>Culturales</span></h2>
+  <p class="sec-desc reveal">Registro fotográfico de actividades culturales y extracurriculares realizadas durante el ciclo.</p>
+
+  <div class="cult-grid" id="culturalesBox"></div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-logo">⚙ GESTIÓN DE MANTENIMIENTO · UPN</div>
+  <p class="footer-txt">
+    Universidad Privada del Norte · Ingeniería Industrial · Ciclo 2026-2<br>
+    Docente: Ing. Sandro Rivera Valle · INDU1502 · Grupo 01
+  </p>
+</footer>
+
+<script>
+/* ══════════════════════════════════════════════════════════════
+   DATOS DE SEMANAS — extraídos del sílabo oficial INDU1502
+
+   CÓMO EDITAR EL TÍTULO DE UNA SEMANA:
+   → Haz clic en "✏ Editar tema" en la página web.
+     El cambio se guarda en tu navegador automáticamente.
+
+   CÓMO AGREGAR UN ENLACE REAL a una actividad:
+   → Cambia:  link: null
+     Por:     link: "https://tu-enlace.com"
+   → Agrega:  linkLabel: "Ver documento →"
+
+   CÓMO AGREGAR UNA FOTO O CERTIFICADO:
+   → Sube el archivo a Google Drive / Imgur / etc.
+   → Copia el enlace público y ponlo en link: "https://..."
+   → Borra:   pending: true
+   ══════════════════════════════════════════════════════════════ */
+const SEMANAS = [
+  {
+    num: 1,
+    theme: "Mantenimiento Correctivo: Costos, Disponibilidad y Confiabilidad",
+    syllabus: "Gestión, sistema, procesos y métodos de Mantenimiento. Ítem, Pieza, Componente, Equipo. Función. Equipo clase A, B y C, Defecto, falla. Parámetros: Disponibilidad, Confiabilidad y mantenibilidad. Mantenimiento Correctivo: Costos directos e indirectos. Lucro cesante. Aplicaciones industriales.",
+    unit: "I — Mantenimiento en la industria moderna",
+    acts: [
+      { type:'ant', ambito:'nacional', title:"Antecedente: Evolución del mantenimiento correctivo en la industria moderna", desc:"Investigación sobre el origen y aplicación del mantenimiento correctivo en plantas industriales peruanas y latinoamericanas.", link:"https://scholar.google.com", linkLabel:"Ver fuente académica →" },
+      { type:'fue', title:"Fuente: García Palencia — Gestión Moderna del Mantenimiento Industrial", desc:"Bibliografía básica del curso. Capítulo sobre sistemas y métodos de mantenimiento.", link:"https://elibro.bibliotecaupn.elogim.com/es/lc/upnorte/titulos/70203", linkLabel:"Ver en biblioteca UPN →" },
+      { type:'tar', title:"Tarea: Identificar ítems, componentes y fallas en una empresa real", desc:"Práctica de clasificación de equipos clase A, B y C con criterio de criticidad.", link:null }
+    ]
+  },
+  {
+    num: 2,
+    theme: "Mantenimiento Preventivo: Órdenes de Trabajo y Frecuencias",
+    syllabus: "Mantenimiento Preventivo: Cálculo de frecuencia. Orden de Trabajo (OT). Costeo de OT. Modelos matemáticos para políticas óptimas de mantenimiento preventivo. Política I: Reemplazo preventivo basado en la edad. Aplicaciones industriales.",
+    unit: "I — Mantenimiento en la industria moderna",
+    acts: [
+      { type:'ant', ambito:'nacional', title:"Antecedente: Modelos de mantenimiento preventivo en la industria manufacturera", desc:"Revisión de literatura sobre políticas de reemplazo basado en la edad y su impacto en costos.", link:"https://scholar.google.com", linkLabel:"Ver artículo →" },
+      { type:'fue', title:"Fuente: Mantenimiento industrial — Gallará & Pontelli (2019)", desc:"Bibliografía complementaria del curso. Capítulo sobre órdenes de trabajo y frecuencias preventivas.", link:"https://elibro.bibliotecaupn.elogim.com/es/lc/upnorte/titulos/172527", linkLabel:"Ver en biblioteca UPN →" },
+      { type:'tar', title:"Tarea: Elaborar una Orden de Trabajo (OT) con costeo", desc:"Ejercicio práctico de cálculo de frecuencia de mantenimiento preventivo para un equipo dado.", link:null },
+      { type:'fot', title:"Foto: Actividad grupal — modelado de OT", desc:"Registro fotográfico de la actividad práctica en aula.", link:null, pending:true }
+    ]
+  },
+  {
+    num: 3,
+    theme: "Política II: Reemplazo Preventivo a Intervalos Constantes (CMC, CMP, COT)",
+    syllabus: "Modelos matemáticos para políticas óptimas de mantenimiento preventivo. Política II: Reemplazo preventivo óptimo a intervalos constantes. Parámetros de Mantenimiento: CMC – CMP – COT. Modelos de Mantenimiento Preventivo. Aplicaciones industriales.",
+    unit: "I — Mantenimiento en la industria moderna",
+    acts: [
+      { type:'ant', ambito:'nacional', title:"Antecedente: Comparativa de políticas de reemplazo preventivo en equipos rotativos", desc:"Análisis de casos de aplicación de Política I vs Política II en plantas industriales.", link:"https://scholar.google.com", linkLabel:"Ver fuente →" },
+      { type:'fue', title:"Fuente: Biblioteca Virtual UPN — recursos sobre CMC y CMP", desc:"Repositorio de la Universidad Privada del Norte con material de referencia del curso.", link:"https://biblioteca.upn.edu.pe/", linkLabel:"Ver biblioteca UPN →" },
+      { type:'tar', title:"Tarea: Cálculo de CMC, CMP y COT para un equipo industrial", desc:"Aplicación de modelos matemáticos a un caso real con datos de falla proporcionados.", link:null }
+    ]
+  },
+  {
+    num: 4,
+    theme: "Mantenimiento Predictivo: Criticidad de Equipos y Técnicas Predictivas",
+    syllabus: "Sostenibilidad económica-financiera del sistema de mantenimiento preventivo. Ciclo de vida sin invertir en mantenimiento preventivo. Ciclo de vida invirtiendo en repotenciación. Mantenimiento Predictivo: Definiciones, criticidad de equipos, técnicas predictivas. Aplicaciones industriales.",
+    unit: "II — Técnicas de mantenimiento industrial",
+    acts: [
+      { type:'ant', ambito:'nacional', title:"Antecedente: Impacto financiero del mantenimiento predictivo vs preventivo", desc:"Revisión de estudios de caso sobre retorno de inversión en sistemas predictivos.", link:"https://scholar.google.com", linkLabel:"Ver artículo →" },
+      { type:'fue', title:"Fuente: Mantenimiento Mundial — técnicas predictivas", desc:"Portal de referencia especializado en mantenimiento industrial.", link:"http://www.mantenimientomundial.com", linkLabel:"Ver fuente →" },
+      { type:'fot', title:"Foto: Visita o charla sobre mantenimiento predictivo", desc:"Registro fotográfico de actividad extracurricular relacionada al mantenimiento predictivo.", link:null, pending:true }
+    ]
+  },
+  {
+    num: 5,
+    theme: "Análisis Vibracional y Rodamientos en Máquinas Rotativas",
+    syllabus: "Análisis vibracional en equipos rotativos. Cálculo de la Frecuencia de Mantenimiento Predictivo. Justificación financiera para la inversión en equipos de monitoreo. Análisis de rodamientos en máquinas rotativas: Durabilidad, costos por fallas, durabilidad de rodamientos de bolas rígidos.",
+    unit: "II — Técnicas de mantenimiento industrial",
+    acts: [
+      { type:'ant', ambito:'nacional', title:"Antecedente: Análisis vibracional como herramienta de mantenimiento predictivo", desc:"Revisión de aplicaciones industriales del análisis de vibraciones para detección temprana de fallas.", link:"https://scholar.google.com", linkLabel:"Ver fuente →" },
+      { type:'fue', title:"Fuente: Design proposal of a Maintenance Management System — LACCEI 2021", desc:"Caso aplicado de sistema de mantenimiento en empresa peruana (Pesquera Pacasmayo).", link:"https://laccei.org/LACCEI2021-VirtualEdition/meta/FP57.html", linkLabel:"Ver artículo LACCEI →" },
+      { type:'tar', title:"Tarea: Calcular frecuencia de mantenimiento predictivo para rodamientos", desc:"Aplicación de fórmulas de durabilidad a datos de rodamientos de bolas rígidos.", link:null },
+      { type:'fot', title:"Foto: Actividad extracurricular — observación de maquinaria rotativa", desc:"Fotografías de la visita o práctica con equipos rotativos.", link:null, pending:true }
+    ]
+  },
+  {
+    num: 6,
+    theme: "⚡ EVALUACIÓN T1 — Trabajo Grupal (10%)",
+    syllabus: "Evaluación T1: Presentación de Trabajo grupal. Peso: 10% de la nota final. Abarca los contenidos de las semanas 1 al 5 (Unidad I y parte de Unidad II).",
+    unit: "Evaluación",
+    isEval: true,
+    acts: [
+      { type:'eva', title:"T1 — Presentación de Trabajo Grupal", desc:"Exposición grupal de los temas trabajados en la Unidad I. Peso: 10% de la nota final.", link:null },
+      { type:'fot', title:"Foto: Presentación grupal T1", desc:"Registro fotográfico de la sustentación del trabajo grupal ante el docente.", link:null, pending:true },
+      { type:'cer', title:"Evidencia: Material de presentación T1", desc:"Documento o PPT del trabajo grupal presentado en la evaluación T1.", link:null, pending:true }
+    ]
+  },
+  {
+    num: 7,
+    theme: "Rodamientos de Contacto Angular, Cónicos y Costo de Ciclo de Vida (CCV)",
+    syllabus: "Durabilidad de rodamientos de contacto angular. Rodamientos de rodillos cónicos y cilíndricos. Aplicaciones industriales. CCV de activos industriales. Frecuencia de Mantenimiento Preventivo.",
+    unit: "II — Técnicas de mantenimiento industrial",
+    acts: [
+      { type:'ant', ambito:'nacional', title:"Antecedente: Costo de ciclo de vida (CCV) en activos industriales", desc:"Investigación sobre metodologías de análisis de CCV para la toma de decisiones en mantenimiento.", link:"https://scholar.google.com", linkLabel:"Ver fuente →" },
+      { type:'fue', title:"Fuente: Normas ISO sobre selección y cálculo de rodamientos", desc:"Referencias técnicas de fabricantes y normas para rodamientos de contacto angular.", link:"https://www.iso.org", linkLabel:"Ver norma →" },
+      { type:'tar', title:"Tarea: Cálculo de CCV para un activo industrial seleccionado", desc:"Ejercicio grupal de análisis de costo de ciclo de vida aplicando datos reales.", link:null }
+    ]
+  },
+  {
+    num: 8,
+    theme: "Soldadura de Mantenimiento: Procesos, Costos y Aplicaciones",
+    syllabus: "Procesos de soldadura eléctrica. Definiciones y componentes. Soldadura de Mantenimiento vs Soldadura de Fabricación. Costos de soldadura. Soldadura eléctrica con arco abierto, con electrodos y con alambre tubular. Aplicaciones industriales.",
+    unit: "II — Técnicas de mantenimiento industrial",
+    acts: [
+      { type:'ant', ambito:'nacional', title:"Antecedente: La soldadura como técnica de mantenimiento industrial", desc:"Revisión de casos de uso de soldadura de mantenimiento en plantas de producción.", link:"https://scholar.google.com", linkLabel:"Ver fuente →" },
+      { type:'fue', title:"Fuente: Manual de soldadura — AWS (American Welding Society)", desc:"Referencia técnica sobre procesos de soldadura con arco eléctrico.", link:"https://www.aws.org", linkLabel:"Ver AWS →" },
+      { type:'fot', title:"Foto: Práctica o demostración de soldadura de mantenimiento", desc:"Registro fotográfico de actividad relacionada a técnicas de soldadura.", link:null, pending:true }
+    ]
+  },
+  {
+    num: 9,
+    theme: "Sistemas de Lubricación Industrial y Análisis de Fallas",
+    syllabus: "Sistemas de lubricación industrial. Definiciones, tipos de lubricantes y de lubricación. Sistemas automatizados. Dimensionamiento. Análisis económico. Lubricación de rodamientos. Herramientas para Análisis de Fallas. Aplicaciones industriales.",
+    unit: "II — Técnicas de mantenimiento industrial",
+    acts: [
+      { type:'ant', ambito:'nacional', title:"Antecedente: Impacto de la lubricación en la vida útil de rodamientos", desc:"Revisión de estudios sobre análisis económico de sistemas de lubricación automatizada.", link:"https://scholar.google.com", linkLabel:"Ver artículo →" },
+      { type:'fue', title:"Fuente: Mantenimiento Mundial — lubricación industrial", desc:"Recursos técnicos sobre tipos de lubricantes y sistemas de lubricación automatizados.", link:"http://www.mantenimientomundial.com", linkLabel:"Ver fuente →" },
+      { type:'tar', title:"Tarea: Dimensionamiento de un sistema de lubricación para un equipo", desc:"Aplicación práctica de criterios técnicos y económicos en el diseño de un sistema de lubricación.", link:null },
+      { type:'fot', title:"Foto: Actividad extracurricular — sistemas de lubricación", desc:"Registro fotográfico de visita o demostración de sistemas de lubricación industrial.", link:null, pending:true }
+    ]
+  },
+  {
+    num: 10,
+    theme: "⚡ EVALUACIÓN T2 — Resolución de Caso Grupal (20%)",
+    syllabus: "Evaluación T2: Resolución de Caso grupal. Peso: 20% de la nota final. Abarca los contenidos de las semanas 6 al 9 (Unidad II completa).",
+    unit: "Evaluación",
+    isEval: true,
+    acts: [
+      { type:'eva', title:"T2 — Resolución de Caso Grupal", desc:"Resolución de un caso industrial grupal integrando técnicas de la Unidad II. Peso: 20% de la nota final.", link:null },
+      { type:'fot', title:"Foto: Presentación de caso grupal T2", desc:"Registro fotográfico de la sustentación del caso ante el docente.", link:null, pending:true },
+      { type:'cer', title:"Evidencia: Informe del caso resuelto T2", desc:"Documento con el desarrollo del caso grupal presentado en la evaluación T2.", link:null, pending:true }
+    ]
+  },
+  {
+    num: 11,
+    theme: "RCM: Mantenimiento Centrado en la Confiabilidad — FTA, FMEA, ACR",
+    syllabus: "Mantenimiento Centrado en la Confiabilidad (RCM). Características del RCM. Confiabilidad operacional. Confiabilidad serie-paralelo. Árbol Lógico de Fallas (FTA). Análisis Causa Raíz (ACR). Análisis de Modos y Efectos de Fallas (FMEA). Análisis de Costo Riesgo-Beneficio (BRCA). Gestión de soldadura. Análisis de fallas.",
+    unit: "III — Mantenimiento centrado en fiabilidad y TPM",
+    acts: [
+      { type:'ant', ambito:'nacional', title:"Antecedente: Implementación del RCM en empresas latinoamericanas", desc:"Revisión de casos de aplicación de RCM en la industria manufacturera y minera.", link:"https://scholar.google.com", linkLabel:"Ver fuente →" },
+      { type:'fue', title:"Fuente: Propuesta de implementación del TPM — Biblioteca UPN", desc:"Referencia complementaria sobre metodologías de confiabilidad en sistemas industriales.", link:"https://elibro.bibliotecaupn.elogim.com/es/lc/upnorte/titulos/34454", linkLabel:"Ver en biblioteca UPN →" },
+      { type:'tar', title:"Tarea: Elaborar un FMEA para un proceso industrial seleccionado", desc:"Análisis grupal de modos y efectos de falla aplicado a un equipo o proceso real.", link:null },
+      { type:'fot', title:"Foto: Taller de análisis de fallas (FTA / FMEA)", desc:"Registro fotográfico de la actividad grupal de análisis de confiabilidad.", link:null, pending:true }
+    ]
+  },
+  {
+    num: 12,
+    theme: "TPM: Mantenimiento Productivo Total — Mantenibilidad y Costos de Ciclo de Vida",
+    syllabus: "Mantenibilidad como determinante de la disponibilidad. Cálculo de Mantenibilidad – MTTR. Costo ciclo de vida de plantas industriales: inversión, operación, mantenimiento, lucro cesante. TPM: Las seis grandes pérdidas, fallas crónicas y esporádicas. Mantenimiento autónomo. Efectividad global (OEE). Productividad de los sistemas de mantenimiento.",
+    unit: "III — Mantenimiento centrado en fiabilidad y TPM",
+    acts: [
+      { type:'ant', ambito:'nacional', title:"Antecedente: Implementación del TPM en empresas peruanas — caso de estudio", desc:"Análisis de la implementación del TPM y su impacto en la efectividad global de equipos (OEE).", link:"https://elibro.bibliotecaupn.elogim.com/es/lc/upnorte/titulos/34454", linkLabel:"Ver referencia →" },
+      { type:'fue', title:"Fuente: García Palencia — Capítulo sobre TPM y Mantenibilidad", desc:"Bibliografía básica del curso. Sección de mantenimiento productivo total y cálculo de MTTR.", link:"https://elibro.bibliotecaupn.elogim.com/es/lc/upnorte/titulos/70203", linkLabel:"Ver en biblioteca UPN →" },
+      { type:'tar', title:"Tarea: Calcular OEE y las 6 grandes pérdidas del TPM en un caso", desc:"Práctica grupal de análisis de efectividad global y propuesta de mejora con TPM.", link:null },
+      { type:'fot', title:"Foto: Visita a empresa con TPM implementado", desc:"Registro fotográfico de actividad extracurricular en planta con 5S y TPM activo.", link:null, pending:true },
+      { type:'cer', title:"Certificado: Curso o webinar sobre TPM / RCM", desc:"Certificado individual de cada integrante en curso de mantenimiento centrado en fiabilidad.", link:null, pending:true }
+    ]
+  },
+  {
+    num: 13,
+    theme: "⚡ EVALUACIÓN T3 — Práctica Calificada Individual (30%)",
+    syllabus: "Evaluación T3: Práctica calificada individual. Peso: 30% de la nota final. Abarca los contenidos de la Unidad III (semanas 11 y 12).",
+    unit: "Evaluación",
+    isEval: true,
+    acts: [
+      { type:'eva', title:"T3 — Práctica Calificada Individual", desc:"Evaluación individual sobre RCM, TPM, FMEA y mantenibilidad. Peso: 30% de la nota final.", link:null },
+      { type:'cer', title:"Evidencia: Desarrollo de la práctica calificada individual", desc:"Documento individual de la práctica presentada en T3.", link:null, pending:true }
+    ]
+  },
+  {
+    num: 14,
+    theme: "Indicadores de Mantenimiento, Gestión de Stocks y TPM Avanzado",
+    syllabus: "Indicadores de Mantenimiento: Índices de disponibilidad, productividad y gestión de costos. Gestión de Stocks y Repuestos: Lote económico de compra, frecuencia de pedidos, stock de seguridad. Estimación de unidades de refacción. TPM: Tasa de Proceso, Tasa de Calidad, Capacidad Productiva. Backlog.",
+    unit: "III — Mantenimiento centrado en fiabilidad y TPM",
+    acts: [
+      { type:'ant', ambito:'nacional', title:"Antecedente: Indicadores de mantenimiento (KPIs) en la industria moderna", desc:"Revisión de índices de disponibilidad, MTBF, MTTR y OEE en empresas del sector industrial.", link:"https://scholar.google.com", linkLabel:"Ver fuente →" },
+      { type:'fue', title:"Fuente: Mantenimiento industrial — Gallará & Pontelli (2019)", desc:"Capítulo sobre gestión de stocks, lote económico y estimación de repuestos.", link:"https://elibro.bibliotecaupn.elogim.com/es/lc/upnorte/titulos/172527", linkLabel:"Ver en biblioteca UPN →" },
+      { type:'tar', title:"Tarea: Calcular stock de seguridad y lote económico de repuestos", desc:"Ejercicio grupal de gestión de inventario de repuestos críticos para mantenimiento.", link:null },
+      { type:'fot', title:"Foto: Actividad grupal — indicadores y gestión de stocks", desc:"Registro fotográfico de la práctica de cálculo de KPIs e indicadores.", link:null, pending:true }
+    ]
+  },
+  {
+    num: 15,
+    theme: "Sustentación de Proyectos Aplicativos Finales",
+    syllabus: "Sustentaciones de proyectos aplicativos finales. Presentación del proyecto grupal con enfoque de auditoría y propuestas técnico-económicas de mejora del proceso de mantenimiento en Planta Industrial.",
+    unit: "Proyecto Final",
+    acts: [
+      { type:'ant', ambito:'nacional', title:"Antecedente: Auditorías de mantenimiento en plantas industriales peruanas", desc:"Revisión de metodologías de auditoría aplicadas como marco del proyecto final.", link:"https://laccei.org/LACCEI2021-VirtualEdition/meta/FP57.html", linkLabel:"Ver caso aplicado →" },
+      { type:'fue', title:"Fuente: Bibliografía integrada del semestre", desc:"Compilación de todas las referencias utilizadas durante el ciclo: García Palencia, Gallará & Pontelli, normas ISO, OSHA.", link:"https://biblioteca.upn.edu.pe/", linkLabel:"Ver biblioteca UPN →" },
+      { type:'tar', title:"Entrega: Plan integral de mantenimiento para empresa seleccionada", desc:"Documento técnico final que integra todos los conocimientos del curso aplicados a un caso real de planta industrial.", link:null },
+      { type:'fot', title:"Foto: Sustentación del proyecto final", desc:"Registro fotográfico de la presentación y defensa del proyecto ante el docente.", link:null, pending:true },
+      { type:'cer', title:"Certificados finales y reconocimientos del grupo", desc:"Certificados de finalización del semestre y cualquier reconocimiento académico obtenido.", link:null, pending:true }
+    ]
+  },
+  {
+    num: 16,
+    theme: "⚡ EVALUACIÓN FINAL (EF) — Sustentación de Proyecto Aplicativo (40%)",
+    syllabus: "Evaluación Final: Sustentación del Proyecto Final Aplicativo (100%). Peso: 40% de la nota final. El estudiante presenta un proyecto grupal con enfoque de auditoría y propuestas técnico-económicas de mejora del proceso de mantenimiento en Planta Industrial.",
+    unit: "Evaluación Final",
+    isEval: true,
+    acts: [
+      { type:'eva', title:"EF — Sustentación del Proyecto Final Aplicativo", desc:"Presentación y defensa del proyecto grupal integral. Peso: 40% de la nota final. Evaluación oral y escrita.", link:null },
+      { type:'fot', title:"Foto: Evaluación Final — sustentación grupal", desc:"Registro fotográfico de la evaluación final ante el docente.", link:null, pending:true },
+      { type:'cer', title:"Evidencia: Informe final del proyecto aplicativo", desc:"Documento completo del proyecto de auditoría y mejora de mantenimiento presentado en la EF.", link:null, pending:true }
+    ]
+  }
+];
+
+/* ── Tipos ── */
+const TYPE = {
+  ant:{css:'t-ant',lbl:'Antecedente'},
+  fue:{css:'t-fue',lbl:'Fuente'},
+  fot:{css:'t-fot',lbl:'📷 Foto'},
+  cer:{css:'t-cer',lbl:'📁 Evidencia'},
+  tar:{css:'t-tar',lbl:'Tarea'},
+  eva:{css:'t-eva',lbl:'⚡ Evaluación'}
+};
+
+/* ══════════════════════════════════════════════════════════════
+   CERTIFICADOS — un enlace por integrante a su carpeta de OneDrive.
+   CÓMO AGREGAR TU CARPETA:
+   → Cambia  link: null  por  link: "https://onedrive.live.com/..."
+   → Ve subiendo tus certificados nuevos a esa misma carpeta cada semana,
+     sin necesidad de tocar este archivo de nuevo.
+   ══════════════════════════════════════════════════════════════ */
+const MIEMBROS = [
+  { name: "Cóndor Gamarra, Patricia Alexandra", link: null },
+  { name: "Manayay Lozada, Jesús Beder",         link: null },
+  { name: "Muñoz Vargas, Bratt",                 link: null },
+  { name: "Torres Yactapuri, Ailton",            link: null },
+  { name: "Valdivieso Cuaresma, Alexander",      link: null }
+];
+
+/* ══════════════════════════════════════════════════════════════
+   ACTIVIDADES CULTURALES — agrega una tarjeta por actividad.
+   CÓMO AGREGAR UNA FOTO:
+   → Sube la foto a Google Drive / Imgur / etc. (que dé un enlace directo a imagen)
+   → Cambia  foto: null  por  foto: "https://enlace-directo-a-tu-imagen.jpg"
+   ══════════════════════════════════════════════════════════════ */
+const CULTURALES = [
+  { titulo: "Actividad cultural 1", foto: null },
+  { titulo: "Actividad cultural 2", foto: null },
+  { titulo: "Actividad cultural 3", foto: null },
+  { titulo: "Actividad cultural 4", foto: null }
+];
+
+/* ── Guardar/cargar temas editados ── */
+function saveTheme(num, val){ try{localStorage.setItem('theme_'+num, val)}catch(e){} }
+function loadTheme(num, def){ try{return localStorage.getItem('theme_'+num)||def}catch(e){return def} }
+
+/* ── Antecedentes: caja individual (o placeholder "pendiente") ── */
+function antBox(item){
+  if(!item){
+    return `<div class="ant-box ant-pending">🕓 Pendiente de completar</div>`;
+  }
+  const link = item.link
+    ? `<a class="act-link" href="${item.link}" target="_blank" rel="noopener">🔗 Referencia bibliográfica →</a>`
+    : '';
+  return `<div class="ant-box">
+    <div class="ant-box-title">${item.title}</div>
+    <div>${item.desc}</div>
+    ${link}
+  </div>`;
+}
+
+/* ── Antecedentes: grillas Nacional / Internacional ── */
+function weekAntSection(acts){
+  const ants = acts.filter(a=>a.type==='ant');
+  if(!ants.length) return '';
+  const nac  = ants.filter(a => (a.ambito||'nacional') === 'nacional');
+  const intl = ants.filter(a => a.ambito === 'internacional');
+  const nacSlots  = [nac[0]  || null, nac[1]  || null];
+  const intlSlots = [intl[0] || null, intl[1] || null];
+  return `
+    <div class="subsec-title">🇵🇪 Antecedente Nacional</div>
+    <div class="ant-grid">${nacSlots.map(antBox).join('')}</div>
+    <div class="subsec-title">🌎 Antecedentes Internacionales</div>
+    <div class="ant-grid">${intlSlots.map(antBox).join('')}</div>`;
+}
+
+/* ── Fuentes: una fila Título/Fuente (o placeholder) ── */
+function fuenteRow(item){
+  if(!item){
+    return `<div class="fuente-row pending">🕓 Pendiente: agregar título y enlace</div>`;
+  }
+  const fuente = item.link
+    ? `<a href="${item.link}" target="_blank" rel="noopener">${item.link}</a>`
+    : '—';
+  return `<div class="fuente-row"><div><b>Título:</b> ${item.titulo}</div><div><b>Fuente:</b> ${fuente}</div></div>`;
+}
+
+/* ── Fuentes bibliográficas generales + académicas (Scopus / Science Direct) ── */
+function weekFuentesSection(acts, fa){
+  fa = fa || {};
+  const fue = acts.filter(a=>a.type==='fue');
+  let html = '';
+  if(fue.length){
+    html += `<div class="subsec-title">📚 Otras Fuentes Bibliográficas</div><ul class="ref-compiled">`;
+    fue.forEach(f=>{
+      html += `<li>${f.title}${f.link?` — <a href="${f.link}" target="_blank" rel="noopener">${f.linkLabel||'Ver fuente →'}</a>`:''}</li>`;
+    });
+    html += `</ul>`;
+  }
+  const scopus = fa.scopus || [];
+  const sciDir = fa.scienceDirect || [];
+  html += `
+    <div class="subsec-title">🔬 Fuentes académicas (Scopus / Science Direct)</div>
+    <div class="fuentes-db-grid">
+      <div class="fuente-db">
+        <div class="fuente-db-lbl">Scopus</div>
+        ${(scopus.length ? scopus : [null]).map(fuenteRow).join('')}
+      </div>
+      <div class="fuente-db">
+        <div class="fuente-db-lbl">Science Direct</div>
+        ${(sciDir.length ? sciDir : [null]).map(fuenteRow).join('')}
+      </div>
+    </div>`;
+  return html;
+}
+
+/* ── Referencias: compilado automático de todo lo citado en la semana ── */
+function weekReferenciasSection(acts, fa){
+  fa = fa || {};
+  const items = acts.filter(a=>a.type==='ant'||a.type==='fue').map(a=>({title:a.title, link:a.link}));
+  (fa.scopus||[]).forEach(s=>items.push({title:s.titulo, link:s.link}));
+  (fa.scienceDirect||[]).forEach(s=>items.push({title:s.titulo, link:s.link}));
+  if(!items.length) return '';
+  return `
+    <div class="subsec-title">🔖 Referencias</div>
+    <ul class="ref-compiled">
+      ${items.map(it=>`<li>${it.title}${it.link?` — <a href="${it.link}" target="_blank" rel="noopener">${it.link}</a>`:''}</li>`).join('')}
+    </ul>`;
+}
+
+/* ── Render ── */
+function render(data){
+  const box = document.getElementById('weeksBox');
+  box.innerHTML = '';
+  data.forEach((s,i)=>{
+    const theme = loadTheme(s.num, s.theme);
+    const div = document.createElement('div');
+    div.className = 'week-block reveal' + (s.isEval?' is-eval':'');
+
+    // Antecedentes y fuentes (fue) ahora se muestran en subsecciones dedicadas,
+    // el resto (tarea, foto, evaluación, evidencia) sigue como lista simple.
+    const restActs = s.acts.filter(a=>a.type!=='ant' && a.type!=='fue');
+    const actsHTML = restActs.map(a=>{
+      const t = TYPE[a.type];
+      let extra = '';
+      if(a.link) extra=`<a class="act-link" href="${a.link}" target="_blank" rel="noopener">🔗 ${a.linkLabel||'Ver fuente →'}</a>`;
+      else if(a.pending) extra=`<span class="act-pend">📎 Pendiente de subir archivo</span>`;
+      return `<li class="act-item" data-type="${a.type}">
+        <span class="atype ${t.css}">${t.lbl}</span>
+        <div class="act-body">
+          <div class="act-title">${a.title}</div>
+          <div class="act-desc">${a.desc}</div>
+          ${extra}
+        </div></li>`;
+    }).join('');
+
+    div.innerHTML = `
+      <div class="week-head" onclick="toggle(event,this)">
+        <div class="week-num">W${String(s.num).padStart(2,'0')}</div>
+        <div class="week-meta" style="flex:1;min-width:0">
+          <div class="wlbl">▸ Semana ${s.num} · ${s.unit}</div>
+          <div style="display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin-top:3px">
+            <div class="wtheme" id="theme-txt-${s.num}">${theme}</div>
+            <button class="edit-theme-btn" onclick="startEdit(event,${s.num})">✏ Editar tema</button>
+          </div>
+        </div>
+        <span class="chev">▼</span>
+      </div>
+      <div class="week-body">
+        <div class="syllabus-box">
+          <strong>📖 Saberes del sílabo</strong>
+          ${s.syllabus}
+        </div>
+        ${weekAntSection(s.acts)}
+        ${weekFuentesSection(s.acts, s.fuentesAcademicas)}
+        ${weekReferenciasSection(s.acts, s.fuentesAcademicas)}
+        ${actsHTML ? `<div class="subsec-title">📋 Otras actividades</div><ul class="act-list">${actsHTML}</ul>` : ''}
+      </div>`;
+    box.appendChild(div);
+    if(i===0) div.classList.add('open');
+  });
+  observe();
+}
+
+/* ── Render Certificados (por integrante) ── */
+function renderCertificados(){
+  const box = document.getElementById('certBox');
+  if(!box) return;
+  box.innerHTML = MIEMBROS.map(m=>{
+    if(m.link){
+      return `<a class="cert-pill reveal" href="${m.link}" target="_blank" rel="noopener">
+        ${m.name}<span class="cert-arrow">📁 Ver certificados →</span></a>`;
+    }
+    return `<div class="cert-pill disabled reveal">
+      ${m.name}<span class="cert-arrow">🕓 Aún sin carpeta</span></div>`;
+  }).join('');
+  observe();
+}
+
+/* ── Render Actividades Culturales ── */
+function renderCulturales(){
+  const box = document.getElementById('culturalesBox');
+  if(!box) return;
+  box.innerHTML = CULTURALES.map(c=>`
+    <div class="cult-card reveal">
+      <div class="cult-title">${c.titulo}</div>
+      <div class="cult-photo">${c.foto ? `<img src="${c.foto}" alt="${c.titulo}">` : '📷 Foto pendiente'}</div>
+    </div>`).join('');
+  observe();
+}
+
+/* ── Editar tema inline ── */
+function startEdit(e, num){
+  e.stopPropagation();
+  const span = document.getElementById('theme-txt-'+num);
+  const cur = span.textContent;
+  const inp = document.createElement('input');
+  inp.type='text'; inp.className='theme-input'; inp.value=cur;
+  span.replaceWith(inp);
+  inp.focus(); inp.select();
+  function finish(){
+    const val = inp.value.trim()||cur;
+    const newSpan = document.createElement('div');
+    newSpan.className='wtheme'; newSpan.id='theme-txt-'+num; newSpan.textContent=val;
+    inp.replaceWith(newSpan);
+    saveTheme(num, val);
+  }
+  inp.addEventListener('blur', finish);
+  inp.addEventListener('keydown', e=>{ if(e.key==='Enter') inp.blur(); if(e.key==='Escape'){inp.value=cur;inp.blur();} });
+}
+
+function toggle(e, head){
+  if(e.target.closest('.edit-theme-btn,.theme-input')) return;
+  head.closest('.week-block').classList.toggle('open');
+}
+
+/* ── Filtrar ── */
+function doFilter(type, btn){
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  if(type==='all'){render(SEMANAS);return;}
+  const filtered = SEMANAS
+    .map(s=>({...s, acts:s.acts.filter(a=>a.type===type)}))
+    .filter(s=>s.acts.length);
+  render(filtered);
+}
+
+/* ── Scroll reveal ── */
+function observe(){
+  const obs = new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('vis');obs.unobserve(e.target);}
+  }),{threshold:0.07});
+  document.querySelectorAll('.reveal:not(.vis)').forEach(el=>obs.observe(el));
+}
+
+/* ── Barra de progreso ── */
+window.addEventListener('scroll',()=>{
+  document.getElementById('prog').style.width=(scrollY/(document.body.scrollHeight-innerHeight)*100)+'%';
+});
+
+/* ── Init ── */
+render(SEMANAS);
+renderCertificados();
+renderCulturales();
+observe();
+</script>
+</body>
+</html>
