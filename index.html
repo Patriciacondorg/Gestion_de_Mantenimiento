@@ -293,7 +293,7 @@ footer{background:var(--bg-hero);color:rgba(255,255,255,.7);text-align:center;pa
   <div class="footer-logo">⚙ GESTIÓN DE MANTENIMIENTO · UPN</div>
   <p class="footer-txt">
     Universidad Privada del Norte · Ingeniería Industrial · Ciclo 2026-2<br>
-    Docente: Ing. Sandro Rivera Valle · INDU1502 · Grupo 01
+    Grupo 05
   </p>
 </footer>
 
@@ -309,7 +309,7 @@ footer{background:var(--bg-hero);color:rgba(255,255,255,.7);text-align:center;pa
    ├────────────────────┬────────────────────────────────┤
    │ 🌎 ANT. INTL 1     │ 🌎 ANT. INTL 2                 │
    ├────────────────────┴────────────────────────────────┤
-   │ 🔖 REFERENCIAS (compilado automático)               │
+   │ 🔖 REFERENCIAS (solo otras_refs)                    │
    ├────────────────────┬────────────────────────────────┤
    │ SCOPUS             │ SCIENCE DIRECT                  │
    │ Título: ___        │ Título: ___                     │
@@ -321,7 +321,7 @@ footer{background:var(--bg-hero);color:rgba(255,255,255,.7);text-align:center;pa
    CAMPOS DE CADA SEMANA en datos.json:
    - ant_nac:    [ {title,desc,refBiblio}, {title,desc,refBiblio} ]  ← 2 antecedentes nacionales
    - ant_intl:   [ {title,desc,refBiblio}, {title,desc,refBiblio} ]  ← 2 internacionales
-   - otras_refs: [ {t,l}, ... ]  ← referencias bibliográficas sueltas (no atadas a un antecedente)
+   - otras_refs: [ {t,l}, ... ]  ← referencias bibliográficas sueltas (no atadas a un antecedente ni a Scopus/SciDir). Es lo único que aparece en la caja "Referencias".
    - scopus:     [ {titulo,fuente}, {titulo,fuente} ]
    - sciDir:     [ {titulo,fuente}, {titulo,fuente} ]
 
@@ -357,15 +357,10 @@ function fuenteCampo(item){
   </div>`;
 }
 
-/* ── Referencias compiladas automáticamente ── */
+/* ── Referencias: SOLO otras_refs (ya NO se repiten antecedentes/Scopus/SciDir) ── */
 function refList(s){
-  const items = [];
-  (s.ant_nac||[]).forEach(a=>{ if(a && a.refBiblio) items.push({t:a.title, l:a.refBiblio}); });
-  (s.ant_intl||[]).forEach(a=>{ if(a && a.refBiblio) items.push({t:a.title, l:a.refBiblio}); });
-  (s.scopus||[]).forEach(f=>{ if(f && f.titulo) items.push({t:f.titulo, l:f.fuente}); });
-  (s.sciDir||[]).forEach(f=>{ if(f && f.titulo) items.push({t:f.titulo, l:f.fuente}); });
-  (s.otras_refs||[]).forEach(r=>{ if(r && r.t) items.push({t:r.t, l:r.l}); });
-  if(!items.length) return `<div class="ref-card"><div class="ref-card-title"><span class="bolt">⚡</span> Referencias</div><p class="ref-card-empty">Se compilarán automáticamente al agregar los datos.</p></div>`;
+  const items = (s.otras_refs||[]).filter(r=>r && r.t);
+  if(!items.length) return `<div class="ref-card"><div class="ref-card-title"><span class="bolt">⚡</span> Referencias</div><p class="ref-card-empty">Sin referencias sueltas para esta semana.</p></div>`;
   const lis = items.map(it=>`<li>${it.t}${it.l?` — <a href="${it.l}" target="_blank" rel="noopener">${it.l}</a>`:''}</li>`).join('');
   return `<div class="ref-card"><div class="ref-card-title"><span class="bolt">⚡</span> Referencias</div><ul class="ref-list">${lis}</ul></div>`;
 }
