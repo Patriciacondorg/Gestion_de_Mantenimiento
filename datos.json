@@ -1,0 +1,605 @@
+{
+  "SEMANAS": [
+    {
+      "num": 1,
+      "theme": "Mantenimiento Correctivo: Costos, Disponibilidad y Confiabilidad",
+      "unit": "I — Mantenimiento en la industria moderna",
+      "ant_nac": [
+        {
+          "title": "Antecedente Nacional 1",
+          "desc": "Díaz Pedraza (2024) realizó un estudio titulado “Modelo de gestión de mantenimiento para incrementar disponibilidad de equipos en una planta pesquera, en la ciudad del Callao”, en Perú, como tesis de maestría en Gerencia del Mantenimiento de la Universidad Nacional del Callao.<br><br>El objetivo general del estudio fue implementar un modelo de gestión de mantenimiento que permitiera incrementar la disponibilidad de los equipos de una planta pesquera. La población estuvo constituida por 50 equipos de la planta pesquera y la muestra constituida por 21 equipos, como instrumentos se utilizaron el software SAP PM, el listado de equipos, para obtener el historial de fallas y de reparación. El diseño de investigación fue pre experimental y se empleó el enfoque de Mantenimiento Centrado en la Confiabilidad (RCM), mediante el cual se identificaron posibles modos de falla y se desarrolló un programa orientado a prevenirlas. Los resultados evidenciaron que la disponibilidad de los equipos se incrementó de 79% a 90%.<br><br>Asimismo, el tiempo medio para reparación (MTTR) mejoró en 0.03 horas y el tiempo medio entre fallas (MTBF) aumentó en 27.739 horas. Estos resultados demostraron que la aplicación del modelo de gestión de mantenimiento permitió mejorar la disponibilidad de los equipos de la planta pesquera.<br><br><em>Díaz Pedraza, C. A. (2024). Modelo de gestión de mantenimiento para incrementar disponibilidad de equipos en una planta pesquera [Tesis de maestría, Universidad Nacional del Callao]. Repositorio Institucional de la Universidad Nacional del Callao.</em>",
+          "refBiblio": "https://hdl.handle.net/20.500.12952/10308"
+        },
+        {
+          "title": "Antecedente Nacional 2",
+          "desc": "Alavedra Flores et al. (2016) realizaron un estudio titulado “Gestión de mantenimiento preventivo y su relación con la disponibilidad de la flota de camiones 730e Komatsu-2013”, en la ciudad de Chimbote, Perú, publicado en la revista Ingeniería Industrial de la Universidad de Lima.<br><br>El objetivo general fue determinar la relación entre la gestión de mantenimiento preventivo, mediante los indicadores MTBF y MTTR, y la disponibilidad de la flota de camiones 730e Komatsu de la empresa Komatsu Maquinarias Perú S. A. La muestra estuvo constituida por la flota de camiones 730e Komatsu, considerando registros históricos de mantenimiento y disponibilidad del periodo 2010-2013, con énfasis en 2012 y 2013. El diseño fue descriptivo correlacional. Como instrumentos se utilizaron registros históricos de mantenimiento, indicadores MTBF (tiempo medio entre fallas) y MTTR (tiempo medio para reparar), visitas al taller, entrevistas no estructuradas y el software SPSS versión 20.<br><br>Los resultados evidenciaron una relación positiva entre la gestión de mantenimiento preventivo y la disponibilidad, con un coeficiente de correlación de 79,1% (r = 0,791). Asimismo, el coeficiente de determinación fue de 62,6% (R² = 0,626), indicando que el 62,6% de la variabilidad de la disponibilidad se explicó mediante los indicadores MTBF y MTTR. El análisis de regresión múltiple obtuvo F = 7,517, superior al valor crítico de 4,257, con significancia de 0,012. Además, el MTBF disminuyó 9,68% en 2011, 20,20% en 2012 y 39,51% en 2013, mientras que el MTTR presentó una tendencia creciente. La disponibilidad física durante 2012-2013 registró valores entre 84,6% y 91,1%, evidenciando la necesidad de fortalecer el mantenimiento preventivo para reducir las paradas imprevistas.<br><br><em>Flores, C. A., Pinedo, Y. G., Orellana, G. M., Luna, C. M., Ocas, B. P., Gilio, K. P., ... & Rojo, C. M. (2016). Gestión de mantenimiento preventivo y su relación con la disponibilidad de la flota de camiones 730e Komatsu-2013. Ingeniería Industrial, (34), 11-26.</em>",
+          "refBiblio": null
+        }
+      ],
+      "ant_intl": [
+        {
+          "title": "Antecedente Internacional 1",
+          "desc": "Yu et al. (2019) realizaron un estudio titulado “Programación imperfecta del mantenimiento correctivo para sistemas de fabricación energéticamente eficientes mediante un método de asignación de tareas en línea”, publicado en el Journal of Manufacturing Systems, volumen 53, páginas 282-290.<br><br>El estudio tuvo como objetivo desarrollar una política de programación del mantenimiento correctivo en tiempo real que permita reducir los costos asociados al mantenimiento y al consumo de energía en una línea de producción estocástica. El diseño utilizado consistió en formular el problema de programación del mantenimiento correctivo como un problema de asignación de tareas en línea (Online Task Allocation, OTA), considerando factores como la disponibilidad limitada del personal de mantenimiento, los diferentes niveles de mantenimiento correctivo, el costo de mantenimiento y las pérdidas de producción. Como instrumentos se utilizó un caso numérico y experimentos numéricos para evaluar la política propuesta y compararla con otras políticas heurísticas.<br><br>Los resultados demostraron que la política de mantenimiento basada en OTA permite reducir el costo total y las pérdidas permanentes de producción, favoreciendo una mejor gestión de los recursos de mantenimiento y la eficiencia del sistema productivo.<br><br><em>Yu, T., Zhu, C., Chang, Q., & Wang, J. (2019). Programación imperfecta del mantenimiento correctivo para sistemas de fabricación energéticamente eficientes mediante un método de asignación de tareas en línea. Journal of Manufacturing Systems, 53, 282–290.</em>",
+          "refBiblio": "https://doi.org/10.1016/j.jmsy.2019.11.002"
+        },
+        {
+          "title": "Antecedente Internacional 2",
+          "desc": "Jara Naranjo (2025) realizó un estudio titulado “Análisis de la gestión del mantenimiento mediante indicadores extraídos de un ERP con módulo GMAO: aplicación en una cadena de retail”, en la ciudad de Valencia, España.<br><br>El objetivo general del estudio fue analizar la gestión del mantenimiento de la empresa PLENAIS mediante el diseño e implementación de un modelo de indicadores clave de desempeño (KPIs) extraídos del sistema ERP Expertis con módulo GMAO, que permitieran evaluar la eficacia del servicio prestado a una cadena de retail y apoyar la toma de decisiones orientadas a la optimización de recursos. La muestra estuvo constituida por 1.423 órdenes de trabajo correctivas registradas en el ERP durante un periodo de dos años (agosto 2023 - agosto 2025), distribuidas en 711 órdenes de la región de Levante (37 tiendas, gestión con personal propio) y 712 de la región de Cataluña (46 tiendas, gestión subcontratada). El diseño utilizado fue un estudio aplicado, descriptivo y analítico, de enfoque cuantitativo, basado en el procesamiento de datos reales extraídos del ERP-GMAO y en la comparación entre los dos modelos de gestión del mantenimiento. Los instrumentos empleados fueron los reportes exportados del ERP Expertis, el procesamiento en Microsoft Excel, la clasificación de avisos asistida por inteligencia artificial y la elaboración de tableros dinámicos en Power BI.<br><br>Los resultados obtenidos muestran un tiempo medio de resolución de 5,6 días en Levante frente a 11,2 días en Cataluña, un cumplimiento global de plazos del 77% frente al 69%, y un ratio preventivo/correctivo de 0,45 y 0,43 respectivamente, lo que evidencia que el modelo de gestión directa ofrece mayor estabilidad operativa frente a la mayor variabilidad del modelo subcontratado.<br><br><em>Jara Naranjo, D. A. (2025). Análisis de la gestión del mantenimiento mediante indicadores extraídos de un ERP con módulo GMAO: aplicación en una cadena de retail [Trabajo Fin de Máster, Universitat Politècnica de València]. RiuNet Repositorio Institucional.</em>",
+          "refBiblio": "https://riunet.upv.es/handle/10251/234334"
+        }
+      ],
+      "otras_refs": [
+        {
+          "t": "Hernández-Dávila, E. S., Gallegos-Londoño, C. M., & García-Mora, F. A. (2023). Estadística descriptiva para el mantenimiento industrial con Python. Editorial CIDE.",
+          "l": "https://doi.org/10.33996/cide.ecuador.EP2636553"
+        },
+        {
+          "t": "Rojas, J. G. G., Laverde, J. V. G., Cardozo Miranda, B. I., Molina, J. O., & Velosa Esparza, R. (2024). Análisis del ciclo de vida de los componentes clave en motores diésel de vehículos militares tipo NPR y sus implicaciones en el mantenimiento preventivo. Ciencia Latina Revista Científica Multidisciplinar, 8(5), 7915–7936.",
+          "l": "https://doi.org/10.37811/cl_rcm.v8i5.14203"
+        }
+      ],
+      "scopus": [
+        {
+          "titulo": "Gestión del mantenimiento de vehículos basada en aprendizaje automático en motores de tractores agrícolas",
+          "fuente": "https://scopus.bibliotecaupn.elogim.com/pages/publications/85156089190?origin=resultslist"
+        },
+        {
+          "titulo": "Journal of Quality in Maintenance Engineering",
+          "fuente": "https://www.scopus.com/sourceid/19171"
+        }
+      ],
+      "sciDir": [
+        {
+          "titulo": "Factores críticos de éxito para el despliegue estratégico del mantenimiento productivo total en la industria maquiladora exportadora en Ciudad Juárez: una solución factorial",
+          "fuente": "https://sciencedirect.bibliotecaupn.elogim.com/science/article/pii/S0186104215000510"
+        },
+        {
+          "titulo": "Predictive maintenance in Industry 4.0: A systematic multi-sector mapping",
+          "fuente": "https://www.sciencedirect.com/science/article/pii/S1755581724000221"
+        }
+      ]
+    },
+    {
+      "num": 2,
+      "theme": "Mantenimiento Preventivo: Órdenes de Trabajo y Frecuencias",
+      "unit": "I — Mantenimiento en la industria moderna",
+      "ant_nac": [
+        {
+          "title": "Antecedente Nacional 1",
+          "desc": "Pendiente de completar.",
+          "refBiblio": null
+        },
+        {
+          "title": "Antecedente Nacional 2",
+          "desc": "Pendiente de completar.",
+          "refBiblio": null
+        }
+      ],
+      "ant_intl": [
+        null,
+        null
+      ],
+      "otras_refs": [],
+      "scopus": [
+        {
+          "titulo": null,
+          "fuente": null
+        },
+        {
+          "titulo": null,
+          "fuente": null
+        }
+      ],
+      "sciDir": [
+        {
+          "titulo": null,
+          "fuente": null
+        },
+        {
+          "titulo": null,
+          "fuente": null
+        }
+      ]
+    },
+    {
+      "num": 3,
+      "theme": "Política II: Reemplazo Preventivo a Intervalos Constantes (CMC, CMP, COT)",
+      "unit": "I — Mantenimiento en la industria moderna",
+      "ant_nac": [
+        {
+          "title": "Antecedente Nacional 1",
+          "desc": "Pendiente de completar.",
+          "refBiblio": null
+        },
+        {
+          "title": "Antecedente Nacional 2",
+          "desc": "Pendiente de completar.",
+          "refBiblio": null
+        }
+      ],
+      "ant_intl": [
+        null,
+        null
+      ],
+      "otras_refs": [],
+      "scopus": [
+        {
+          "titulo": null,
+          "fuente": null
+        },
+        {
+          "titulo": null,
+          "fuente": null
+        }
+      ],
+      "sciDir": [
+        {
+          "titulo": null,
+          "fuente": null
+        },
+        {
+          "titulo": null,
+          "fuente": null
+        }
+      ]
+    },
+    {
+      "num": 4,
+      "theme": "Mantenimiento Predictivo: Criticidad de Equipos y Técnicas Predictivas",
+      "unit": "II — Técnicas de mantenimiento industrial",
+      "ant_nac": [
+        {
+          "title": "Antecedente Nacional 1",
+          "desc": "Pendiente de completar.",
+          "refBiblio": null
+        },
+        {
+          "title": "Antecedente Nacional 2",
+          "desc": "Pendiente de completar.",
+          "refBiblio": null
+        }
+      ],
+      "ant_intl": [
+        null,
+        null
+      ],
+      "otras_refs": [],
+      "scopus": [
+        {
+          "titulo": null,
+          "fuente": null
+        },
+        {
+          "titulo": null,
+          "fuente": null
+        }
+      ],
+      "sciDir": [
+        {
+          "titulo": null,
+          "fuente": null
+        },
+        {
+          "titulo": null,
+          "fuente": null
+        }
+      ]
+    },
+    {
+      "num": 5,
+      "theme": "Análisis Vibracional y Rodamientos en Máquinas Rotativas",
+      "unit": "II — Técnicas de mantenimiento industrial",
+      "ant_nac": [
+        {
+          "title": "Antecedente Nacional 1",
+          "desc": "Pendiente de completar.",
+          "refBiblio": null
+        },
+        {
+          "title": "Antecedente Nacional 2",
+          "desc": "Pendiente de completar.",
+          "refBiblio": null
+        }
+      ],
+      "ant_intl": [
+        null,
+        null
+      ],
+      "otras_refs": [],
+      "scopus": [
+        {
+          "titulo": null,
+          "fuente": null
+        },
+        {
+          "titulo": null,
+          "fuente": null
+        }
+      ],
+      "sciDir": [
+        {
+          "titulo": null,
+          "fuente": null
+        },
+        {
+          "titulo": null,
+          "fuente": null
+        }
+      ]
+    },
+    {
+      "num": 6,
+      "theme": "⚡ EVALUACIÓN T1 — Trabajo Grupal (10%)",
+      "unit": "Evaluación",
+      "isEval": true,
+      "eva": {
+        "title": "T1 — Presentación de Trabajo Grupal",
+        "desc": "Exposición grupal de los temas de la Unidad I. Peso: 10% de la nota final."
+      }
+    },
+    {
+      "num": 7,
+      "theme": "Rodamientos de Contacto Angular, Cónicos y Costo de Ciclo de Vida (CCV)",
+      "unit": "II — Técnicas de mantenimiento industrial",
+      "ant_nac": [
+        {
+          "title": "Antecedente Nacional 1",
+          "desc": "Pendiente de completar.",
+          "refBiblio": null
+        },
+        {
+          "title": "Antecedente Nacional 2",
+          "desc": "Pendiente de completar.",
+          "refBiblio": null
+        }
+      ],
+      "ant_intl": [
+        null,
+        null
+      ],
+      "otras_refs": [],
+      "scopus": [
+        {
+          "titulo": null,
+          "fuente": null
+        },
+        {
+          "titulo": null,
+          "fuente": null
+        }
+      ],
+      "sciDir": [
+        {
+          "titulo": null,
+          "fuente": null
+        },
+        {
+          "titulo": null,
+          "fuente": null
+        }
+      ]
+    },
+    {
+      "num": 8,
+      "theme": "Soldadura de Mantenimiento: Procesos, Costos y Aplicaciones",
+      "unit": "II — Técnicas de mantenimiento industrial",
+      "ant_nac": [
+        {
+          "title": "Antecedente Nacional 1",
+          "desc": "Pendiente de completar.",
+          "refBiblio": null
+        },
+        {
+          "title": "Antecedente Nacional 2",
+          "desc": "Pendiente de completar.",
+          "refBiblio": null
+        }
+      ],
+      "ant_intl": [
+        null,
+        null
+      ],
+      "otras_refs": [],
+      "scopus": [
+        {
+          "titulo": null,
+          "fuente": null
+        },
+        {
+          "titulo": null,
+          "fuente": null
+        }
+      ],
+      "sciDir": [
+        {
+          "titulo": null,
+          "fuente": null
+        },
+        {
+          "titulo": null,
+          "fuente": null
+        }
+      ]
+    },
+    {
+      "num": 9,
+      "theme": "Sistemas de Lubricación Industrial y Análisis de Fallas",
+      "unit": "II — Técnicas de mantenimiento industrial",
+      "ant_nac": [
+        {
+          "title": "Antecedente Nacional 1",
+          "desc": "Pendiente de completar.",
+          "refBiblio": null
+        },
+        {
+          "title": "Antecedente Nacional 2",
+          "desc": "Pendiente de completar.",
+          "refBiblio": null
+        }
+      ],
+      "ant_intl": [
+        null,
+        null
+      ],
+      "otras_refs": [],
+      "scopus": [
+        {
+          "titulo": null,
+          "fuente": null
+        },
+        {
+          "titulo": null,
+          "fuente": null
+        }
+      ],
+      "sciDir": [
+        {
+          "titulo": null,
+          "fuente": null
+        },
+        {
+          "titulo": null,
+          "fuente": null
+        }
+      ]
+    },
+    {
+      "num": 10,
+      "theme": "⚡ EVALUACIÓN T2 — Resolución de Caso Grupal (20%)",
+      "unit": "Evaluación",
+      "isEval": true,
+      "eva": {
+        "title": "T2 — Resolución de Caso Grupal",
+        "desc": "Caso industrial grupal integrando técnicas de la Unidad II. Peso: 20% de la nota final."
+      }
+    },
+    {
+      "num": 11,
+      "theme": "RCM: Mantenimiento Centrado en la Confiabilidad — FTA, FMEA, ACR",
+      "unit": "III — Mantenimiento centrado en fiabilidad y TPM",
+      "ant_nac": [
+        {
+          "title": "Antecedente Nacional 1",
+          "desc": "Pendiente de completar.",
+          "refBiblio": null
+        },
+        {
+          "title": "Antecedente Nacional 2",
+          "desc": "Pendiente de completar.",
+          "refBiblio": null
+        }
+      ],
+      "ant_intl": [
+        null,
+        null
+      ],
+      "otras_refs": [],
+      "scopus": [
+        {
+          "titulo": null,
+          "fuente": null
+        },
+        {
+          "titulo": null,
+          "fuente": null
+        }
+      ],
+      "sciDir": [
+        {
+          "titulo": null,
+          "fuente": null
+        },
+        {
+          "titulo": null,
+          "fuente": null
+        }
+      ]
+    },
+    {
+      "num": 12,
+      "theme": "TPM: Mantenimiento Productivo Total — Mantenibilidad y Ciclo de Vida",
+      "unit": "III — Mantenimiento centrado en fiabilidad y TPM",
+      "ant_nac": [
+        {
+          "title": "Antecedente Nacional 1",
+          "desc": "Pendiente de completar.",
+          "refBiblio": null
+        },
+        {
+          "title": "Antecedente Nacional 2",
+          "desc": "Pendiente de completar.",
+          "refBiblio": null
+        }
+      ],
+      "ant_intl": [
+        null,
+        null
+      ],
+      "otras_refs": [],
+      "scopus": [
+        {
+          "titulo": null,
+          "fuente": null
+        },
+        {
+          "titulo": null,
+          "fuente": null
+        }
+      ],
+      "sciDir": [
+        {
+          "titulo": null,
+          "fuente": null
+        },
+        {
+          "titulo": null,
+          "fuente": null
+        }
+      ]
+    },
+    {
+      "num": 13,
+      "theme": "⚡ EVALUACIÓN T3 — Práctica Calificada Individual (30%)",
+      "unit": "Evaluación",
+      "isEval": true,
+      "eva": {
+        "title": "T3 — Práctica Calificada Individual",
+        "desc": "Evaluación individual sobre RCM, TPM y mantenibilidad. Peso: 30% de la nota final."
+      }
+    },
+    {
+      "num": 14,
+      "theme": "Indicadores de Mantenimiento, Gestión de Stocks y TPM Avanzado",
+      "unit": "III — Mantenimiento centrado en fiabilidad y TPM",
+      "ant_nac": [
+        {
+          "title": "Antecedente Nacional 1",
+          "desc": "Pendiente de completar.",
+          "refBiblio": null
+        },
+        {
+          "title": "Antecedente Nacional 2",
+          "desc": "Pendiente de completar.",
+          "refBiblio": null
+        }
+      ],
+      "ant_intl": [
+        null,
+        null
+      ],
+      "otras_refs": [],
+      "scopus": [
+        {
+          "titulo": null,
+          "fuente": null
+        },
+        {
+          "titulo": null,
+          "fuente": null
+        }
+      ],
+      "sciDir": [
+        {
+          "titulo": null,
+          "fuente": null
+        },
+        {
+          "titulo": null,
+          "fuente": null
+        }
+      ]
+    },
+    {
+      "num": 15,
+      "theme": "Sustentación de Proyectos Aplicativos Finales",
+      "unit": "Proyecto Final",
+      "ant_nac": [
+        {
+          "title": "Antecedente Nacional 1",
+          "desc": "Pendiente de completar.",
+          "refBiblio": null
+        },
+        {
+          "title": "Antecedente Nacional 2",
+          "desc": "Pendiente de completar.",
+          "refBiblio": null
+        }
+      ],
+      "ant_intl": [
+        null,
+        null
+      ],
+      "otras_refs": [],
+      "scopus": [
+        {
+          "titulo": null,
+          "fuente": null
+        },
+        {
+          "titulo": null,
+          "fuente": null
+        }
+      ],
+      "sciDir": [
+        {
+          "titulo": null,
+          "fuente": null
+        },
+        {
+          "titulo": null,
+          "fuente": null
+        }
+      ]
+    },
+    {
+      "num": 16,
+      "theme": "⚡ EVALUACIÓN FINAL (EF) — Proyecto Aplicativo (40%)",
+      "unit": "Evaluación",
+      "isEval": true,
+      "eva": {
+        "title": "EF — Sustentación del Proyecto Final Aplicativo",
+        "desc": "Presentación y defensa del proyecto grupal integral. Peso: 40% de la nota final."
+      }
+    }
+  ],
+  "MIEMBROS": [
+    {
+      "name": "Condor Gamarra, Patricia Alexandra",
+      "link": null
+    },
+    {
+      "name": "Manayay Lozada, Jesús Beder",
+      "link": null
+    },
+    {
+      "name": "Muñoz Vargas, Bratt",
+      "link": null
+    },
+    {
+      "name": "Torres Yactapuri, Ailton",
+      "link": null
+    },
+    {
+      "name": "Valdivieso Cuaresma, Alexander",
+      "link": null
+    }
+  ],
+  "CULTURALES": [
+    {
+      "titulo": "Actividad cultural 1",
+      "fotos": []
+    },
+    {
+      "titulo": "Actividad cultural 2",
+      "fotos": []
+    },
+    {
+      "titulo": "Actividad cultural 3",
+      "fotos": []
+    },
+    {
+      "titulo": "Actividad cultural 4",
+      "fotos": []
+    }
+  ]
+}
