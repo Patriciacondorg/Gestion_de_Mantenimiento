@@ -293,15 +293,19 @@ footer{background:var(--bg-hero);color:rgba(255,255,255,.7);text-align:center;pa
   <div class="footer-logo">⚙ GESTIÓN DE MANTENIMIENTO · UPN</div>
   <p class="footer-txt">
     Universidad Privada del Norte · Ingeniería Industrial · Ciclo 2026-2<br>
-    Grupo 05
+    Docente: Ing. Sandro Rivera Valle · INDU1502 · Grupo 01
   </p>
 </footer>
 
 <script>
 /* ══════════════════════════════════════════════════════════
+   LOS DATOS DE ESTA PÁGINA VIVEN EN datos.json (archivo aparte).
+   Este script solo define cómo se pintan. Para llenar contenido,
+   edita datos.json — no este HTML.
+
    ESTRUCTURA DE CADA SEMANA (según boceto):
    ┌─────────────────────────────────────────────────────┐
-   │ 🇵🇪 ANTECEDENTE NACIONAL  (1 caja ancha)            │
+   │ 🇵🇪 ANT. NACIONAL 1 │ 🇵🇪 ANT. NACIONAL 2            │
    ├────────────────────┬────────────────────────────────┤
    │ 🌎 ANT. INTL 1     │ 🌎 ANT. INTL 2                 │
    ├────────────────────┴────────────────────────────────┤
@@ -314,169 +318,15 @@ footer{background:var(--bg-hero);color:rgba(255,255,255,.7);text-align:center;pa
    │ Fuente: ___        │ Fuente: ___                     │
    └────────────────────┴────────────────────────────────┘
 
-   CÓMO COMPLETAR CADA SEMANA:
-   - ant_nac:   [ {title,desc,refBiblio}, {title,desc,refBiblio} ]  ← 2 antecedentes nacionales
-   - ant_intl:  [ {title,desc,refBiblio}, {title,desc,refBiblio} ]  ← 2 internacionales
-   - scopus:    [ {titulo,fuente}, {titulo,fuente} ]
-   - sciDir:    [ {titulo,fuente}, {titulo,fuente} ]
+   CAMPOS DE CADA SEMANA en datos.json:
+   - ant_nac:    [ {title,desc,refBiblio}, {title,desc,refBiblio} ]  ← 2 antecedentes nacionales
+   - ant_intl:   [ {title,desc,refBiblio}, {title,desc,refBiblio} ]  ← 2 internacionales
+   - otras_refs: [ {t,l}, ... ]  ← referencias bibliográficas sueltas (no atadas a un antecedente)
+   - scopus:     [ {titulo,fuente}, {titulo,fuente} ]
+   - sciDir:     [ {titulo,fuente}, {titulo,fuente} ]
 
    Deja null o [] en los que aún estén pendientes.
    ══════════════════════════════════════════════════════════ */
-const SEMANAS = [
-  {
-    num:1, theme:"Mantenimiento Correctivo: Costos, Disponibilidad y Confiabilidad",
-    unit:"I — Mantenimiento en la industria moderna",
-    ant_nac:  [
-      { title:"Antecedente Nacional 1", desc:"Pendiente de completar.", refBiblio:null },
-      { title:"Antecedente Nacional 2", desc:"Pendiente de completar.", refBiblio:null }
-    ],
-    ant_intl: [ null, null ],
-    scopus:   [ {titulo:null, fuente:null}, {titulo:null, fuente:null} ],
-    sciDir:   [ {titulo:null, fuente:null}, {titulo:null, fuente:null} ]
-  },
-  {
-    num:2, theme:"Mantenimiento Preventivo: Órdenes de Trabajo y Frecuencias",
-    unit:"I — Mantenimiento en la industria moderna",
-    ant_nac:  [
-      { title:"Antecedente Nacional 1", desc:"Pendiente de completar.", refBiblio:null },
-      { title:"Antecedente Nacional 2", desc:"Pendiente de completar.", refBiblio:null }
-    ],
-    ant_intl: [ null, null ],
-    scopus:   [ {titulo:null, fuente:null}, {titulo:null, fuente:null} ],
-    sciDir:   [ {titulo:null, fuente:null}, {titulo:null, fuente:null} ]
-  },
-  {
-    num:3, theme:"Política II: Reemplazo Preventivo a Intervalos Constantes (CMC, CMP, COT)",
-    unit:"I — Mantenimiento en la industria moderna",
-    ant_nac:  [
-      { title:"Antecedente Nacional 1", desc:"Pendiente de completar.", refBiblio:null },
-      { title:"Antecedente Nacional 2", desc:"Pendiente de completar.", refBiblio:null }
-    ],
-    ant_intl: [ null, null ],
-    scopus:   [ {titulo:null, fuente:null}, {titulo:null, fuente:null} ],
-    sciDir:   [ {titulo:null, fuente:null}, {titulo:null, fuente:null} ]
-  },
-  {
-    num:4, theme:"Mantenimiento Predictivo: Criticidad de Equipos y Técnicas Predictivas",
-    unit:"II — Técnicas de mantenimiento industrial",
-    ant_nac:  [
-      { title:"Antecedente Nacional 1", desc:"Pendiente de completar.", refBiblio:null },
-      { title:"Antecedente Nacional 2", desc:"Pendiente de completar.", refBiblio:null }
-    ],
-    ant_intl: [ null, null ],
-    scopus:   [ {titulo:null, fuente:null}, {titulo:null, fuente:null} ],
-    sciDir:   [ {titulo:null, fuente:null}, {titulo:null, fuente:null} ]
-  },
-  {
-    num:5, theme:"Análisis Vibracional y Rodamientos en Máquinas Rotativas",
-    unit:"II — Técnicas de mantenimiento industrial",
-    ant_nac:  [
-      { title:"Antecedente Nacional 1", desc:"Pendiente de completar.", refBiblio:null },
-      { title:"Antecedente Nacional 2", desc:"Pendiente de completar.", refBiblio:null }
-    ],
-    ant_intl: [ null, null ],
-    scopus:   [ {titulo:null, fuente:null}, {titulo:null, fuente:null} ],
-    sciDir:   [ {titulo:null, fuente:null}, {titulo:null, fuente:null} ]
-  },
-  {
-    num:6, theme:"⚡ EVALUACIÓN T1 — Trabajo Grupal (10%)",
-    unit:"Evaluación", isEval:true,
-    eva: { title:"T1 — Presentación de Trabajo Grupal", desc:"Exposición grupal de los temas de la Unidad I. Peso: 10% de la nota final." }
-  },
-  {
-    num:7, theme:"Rodamientos de Contacto Angular, Cónicos y Costo de Ciclo de Vida (CCV)",
-    unit:"II — Técnicas de mantenimiento industrial",
-    ant_nac:  [
-      { title:"Antecedente Nacional 1", desc:"Pendiente de completar.", refBiblio:null },
-      { title:"Antecedente Nacional 2", desc:"Pendiente de completar.", refBiblio:null }
-    ],
-    ant_intl: [ null, null ],
-    scopus:   [ {titulo:null, fuente:null}, {titulo:null, fuente:null} ],
-    sciDir:   [ {titulo:null, fuente:null}, {titulo:null, fuente:null} ]
-  },
-  {
-    num:8, theme:"Soldadura de Mantenimiento: Procesos, Costos y Aplicaciones",
-    unit:"II — Técnicas de mantenimiento industrial",
-    ant_nac:  [
-      { title:"Antecedente Nacional 1", desc:"Pendiente de completar.", refBiblio:null },
-      { title:"Antecedente Nacional 2", desc:"Pendiente de completar.", refBiblio:null }
-    ],
-    ant_intl: [ null, null ],
-    scopus:   [ {titulo:null, fuente:null}, {titulo:null, fuente:null} ],
-    sciDir:   [ {titulo:null, fuente:null}, {titulo:null, fuente:null} ]
-  },
-  {
-    num:9, theme:"Sistemas de Lubricación Industrial y Análisis de Fallas",
-    unit:"II — Técnicas de mantenimiento industrial",
-    ant_nac:  [
-      { title:"Antecedente Nacional 1", desc:"Pendiente de completar.", refBiblio:null },
-      { title:"Antecedente Nacional 2", desc:"Pendiente de completar.", refBiblio:null }
-    ],
-    ant_intl: [ null, null ],
-    scopus:   [ {titulo:null, fuente:null}, {titulo:null, fuente:null} ],
-    sciDir:   [ {titulo:null, fuente:null}, {titulo:null, fuente:null} ]
-  },
-  {
-    num:10, theme:"⚡ EVALUACIÓN T2 — Resolución de Caso Grupal (20%)",
-    unit:"Evaluación", isEval:true,
-    eva: { title:"T2 — Resolución de Caso Grupal", desc:"Caso industrial grupal integrando técnicas de la Unidad II. Peso: 20% de la nota final." }
-  },
-  {
-    num:11, theme:"RCM: Mantenimiento Centrado en la Confiabilidad — FTA, FMEA, ACR",
-    unit:"III — Mantenimiento centrado en fiabilidad y TPM",
-    ant_nac:  [
-      { title:"Antecedente Nacional 1", desc:"Pendiente de completar.", refBiblio:null },
-      { title:"Antecedente Nacional 2", desc:"Pendiente de completar.", refBiblio:null }
-    ],
-    ant_intl: [ null, null ],
-    scopus:   [ {titulo:null, fuente:null}, {titulo:null, fuente:null} ],
-    sciDir:   [ {titulo:null, fuente:null}, {titulo:null, fuente:null} ]
-  },
-  {
-    num:12, theme:"TPM: Mantenimiento Productivo Total — Mantenibilidad y Ciclo de Vida",
-    unit:"III — Mantenimiento centrado en fiabilidad y TPM",
-    ant_nac:  [
-      { title:"Antecedente Nacional 1", desc:"Pendiente de completar.", refBiblio:null },
-      { title:"Antecedente Nacional 2", desc:"Pendiente de completar.", refBiblio:null }
-    ],
-    ant_intl: [ null, null ],
-    scopus:   [ {titulo:null, fuente:null}, {titulo:null, fuente:null} ],
-    sciDir:   [ {titulo:null, fuente:null}, {titulo:null, fuente:null} ]
-  },
-  {
-    num:13, theme:"⚡ EVALUACIÓN T3 — Práctica Calificada Individual (30%)",
-    unit:"Evaluación", isEval:true,
-    eva: { title:"T3 — Práctica Calificada Individual", desc:"Evaluación individual sobre RCM, TPM y mantenibilidad. Peso: 30% de la nota final." }
-  },
-  {
-    num:14, theme:"Indicadores de Mantenimiento, Gestión de Stocks y TPM Avanzado",
-    unit:"III — Mantenimiento centrado en fiabilidad y TPM",
-    ant_nac:  [
-      { title:"Antecedente Nacional 1", desc:"Pendiente de completar.", refBiblio:null },
-      { title:"Antecedente Nacional 2", desc:"Pendiente de completar.", refBiblio:null }
-    ],
-    ant_intl: [ null, null ],
-    scopus:   [ {titulo:null, fuente:null}, {titulo:null, fuente:null} ],
-    sciDir:   [ {titulo:null, fuente:null}, {titulo:null, fuente:null} ]
-  },
-  {
-    num:15, theme:"Sustentación de Proyectos Aplicativos Finales",
-    unit:"Proyecto Final",
-    ant_nac:  [
-      { title:"Antecedente Nacional 1", desc:"Pendiente de completar.", refBiblio:null },
-      { title:"Antecedente Nacional 2", desc:"Pendiente de completar.", refBiblio:null }
-    ],
-    ant_intl: [ null, null ],
-    scopus:   [ {titulo:null, fuente:null}, {titulo:null, fuente:null} ],
-    sciDir:   [ {titulo:null, fuente:null}, {titulo:null, fuente:null} ]
-  },
-  {
-    num:16, theme:"⚡ EVALUACIÓN FINAL (EF) — Proyecto Aplicativo (40%)",
-    unit:"Evaluación Final", isEval:true,
-    eva: { title:"EF — Sustentación del Proyecto Final Aplicativo", desc:"Presentación y defensa del proyecto grupal integral. Peso: 40% de la nota final." }
-  }
-];
-
 /* ── Caja antecedente ── */
 function antBox(item, wide){
   const cls = wide ? 'ant-row-1' : '';
@@ -514,6 +364,7 @@ function refList(s){
   (s.ant_intl||[]).forEach(a=>{ if(a && a.refBiblio) items.push({t:a.title, l:a.refBiblio}); });
   (s.scopus||[]).forEach(f=>{ if(f && f.titulo) items.push({t:f.titulo, l:f.fuente}); });
   (s.sciDir||[]).forEach(f=>{ if(f && f.titulo) items.push({t:f.titulo, l:f.fuente}); });
+  (s.otras_refs||[]).forEach(r=>{ if(r && r.t) items.push({t:r.t, l:r.l}); });
   if(!items.length) return `<div class="ref-card"><div class="ref-card-title"><span class="bolt">⚡</span> Referencias</div><p class="ref-card-empty">Se compilarán automáticamente al agregar los datos.</p></div>`;
   const lis = items.map(it=>`<li>${it.t}${it.l?` — <a href="${it.l}" target="_blank" rel="noopener">${it.l}</a>`:''}</li>`).join('');
   return `<div class="ref-card"><div class="ref-card-title"><span class="bolt">⚡</span> Referencias</div><ul class="ref-list">${lis}</ul></div>`;
@@ -591,15 +442,8 @@ function render(data, filterType){
   observe();
 }
 
-/* ── Certificados ── */
-const MIEMBROS = [
-  { name:"Condor Gamarra, Patricia Alexandra", link:null },
-  { name:"Manayay Lozada, Jesús Beder",        link:null },
-  { name:"Muñoz Vargas, Bratt",                link:null },
-  { name:"Torres Yactapuri, Ailton",           link:null },
-  { name:"Valdivieso Cuaresma, Alexander",     link:null }
-];
-
+/* ── Certificados ──
+   MIEMBROS ahora vive en datos.json (se carga más abajo). */
 function renderCerts(){
   const box = document.getElementById('certBox');
   if(!box) return;
@@ -611,16 +455,10 @@ function renderCerts(){
 }
 
 /* ── Actividades culturales ──
+   CULTURALES también vive en datos.json.
    fotos: [] → arreglo de rutas/URLs de imagen (no un solo link).
    Ejemplo: fotos: ["assets/img/cultural1-a.jpg", "assets/img/cultural1-b.jpg"]
    Puedes poner de 1 a 4 fotos por actividad. */
-const CULTURALES = [
-  { titulo:"Actividad cultural 1", fotos: [] },
-  { titulo:"Actividad cultural 2", fotos: [] },
-  { titulo:"Actividad cultural 3", fotos: [] },
-  { titulo:"Actividad cultural 4", fotos: [] }
-];
-
 function renderCulturales(){
   const box = document.getElementById('culturalesBox');
   if(!box) return;
@@ -667,10 +505,38 @@ window.addEventListener('scroll',()=>{
   document.getElementById('prog').style.width=(scrollY/(document.body.scrollHeight-innerHeight)*100)+'%';
 });
 
-render(SEMANAS, 'all');
-renderCerts();
-renderCulturales();
-observe();
+/* ══════════════════════════════════════════════════════════
+   CARGA DE DATOS DESDE datos.json
+   Todo el contenido (semanas, integrantes, culturales) vive en
+   ese archivo aparte. Así, cuando tus compañeros llenan info ahí
+   y suben (push) el cambio a GitHub, la página se actualiza sola
+   sin tocar este HTML/JS para nada.
+   ══════════════════════════════════════════════════════════ */
+let SEMANAS = [], MIEMBROS = [], CULTURALES = [];
+
+fetch('datos.json')
+  .then(r=>{
+    if(!r.ok) throw new Error('No se pudo cargar datos.json (status '+r.status+')');
+    return r.json();
+  })
+  .then(data=>{
+    SEMANAS    = data.SEMANAS    || [];
+    MIEMBROS   = data.MIEMBROS   || [];
+    CULTURALES = data.CULTURALES || [];
+    render(SEMANAS, 'all');
+    renderCerts();
+    renderCulturales();
+    observe();
+  })
+  .catch(err=>{
+    console.error(err);
+    document.getElementById('weeksBox').innerHTML =
+      `<p style="font-size:13px;color:#E53E3E;text-align:center;padding:40px 0">
+        ⚠ No se pudo cargar datos.json. Si abriste el archivo directo desde tu
+        computadora (file://), ábrelo con un servidor local o revísalo en la
+        página publicada de GitHub Pages.
+      </p>`;
+  });
 </script>
 </body>
 </html>
